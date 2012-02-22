@@ -7,6 +7,8 @@ namespace FluentMetadata.MVC
 {
     public class FluentValidationProvider : ModelValidatorProvider
     {
+        public static bool AddImplicitRequiredValidatorsForValueTypes = true;
+
         public override IEnumerable<ModelValidator> GetValidators(ModelMetadata metadata, ControllerContext context)
         {
             var validators = new List<ModelValidator>();
@@ -18,6 +20,13 @@ namespace FluentMetadata.MVC
 
                 if (isPropertyMetadata)
                 {
+                    if (AddImplicitRequiredValidatorsForValueTypes &&
+                        metadata.IsRequired &&
+                        !rules.OfType<RequiredRule>().Any())
+                    {
+                        rulesList.Add(new RequiredRule());
+                    }
+
                     validators.AddRange(rules.Select(rule => new RuleModelValidator(rule, metadata, context)));
                 }
                 else
