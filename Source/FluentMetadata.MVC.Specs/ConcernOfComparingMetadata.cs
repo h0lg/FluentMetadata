@@ -291,5 +291,20 @@ namespace FluentMetadata.MVC.Specs
                     .OfType<ModelClientValidationEqualToRule>()
                     .Count());
         }
+
+        [Observation]
+        public void NumberOfValidatorsIsEqual()
+        {
+            var controllerContext = new ControllerContext();
+            var expectedValidatorsCount = new DataAnnotationsModelValidatorProvider()
+                .GetValidators(Expected, controllerContext)
+                .Count();
+
+            Console.WriteLine(expectedValidatorsCount);
+            Assert.Equal(expectedValidatorsCount,
+                new FluentValidationProvider()
+                    .GetValidators(Fluent, controllerContext)
+                    .Count());
+        }
     }
 }

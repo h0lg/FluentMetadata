@@ -28,6 +28,16 @@ namespace FluentMetadata.MVC
                     }
 
                     validators.AddRange(rules.Select(rule => new RuleModelValidator(rule, metadata, context)));
+
+                    if (metadata.DataTypeName != null)
+                    {
+                        validators.Add(
+                            new GenericModelValidator(
+                                metadata,
+                                context,
+                                () => "The DataType of {0} is invalid.",
+                                (object value) => !string.IsNullOrEmpty(metadata.DataTypeName)));
+                    }
                 }
                 else
                 {
