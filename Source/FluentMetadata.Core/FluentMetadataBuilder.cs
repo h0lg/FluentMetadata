@@ -123,5 +123,79 @@ namespace FluentMetadata
                 throw new InvalidOperationException("No Constructor without parameters on  " + type.FullName);
             }
         }
+
+        public static string PrintFormattedMetadata()
+        {
+            //TODO implement PrintFormattedMetadata
+            throw new NotImplementedException();
+            /*
+             sth like
+             * Type1
+             *      displayName: "MyType No. 1"
+             *      ...
+             *      rules:
+             *          properties "pass" and "confirm" must match
+             *          ...
+             *      int Property1
+             *          is required
+             *          must be in range 0-100
+             *          ...
+             *      ...
+             *  ...
+             */
+        }
+
+        public static string PrintMetadataDependencyTree()
+        {
+            //TODO implement PrintMetadataDependencyTree
+            throw new NotImplementedException();
+            /*
+             sth like
+             *      Type1
+             *      Type3
+             *          Type2
+             *          Type4
+             *      Type5
+             *          type6
+             *              type7
+             *      ...
+             */
+        }
+
+        public static string PrintMetadataBuildOrder()
+        {
+            //TODO implement PrintMetadataDependencyTree
+            throw new NotImplementedException();
+            /*
+             sth like
+             *  Type1
+             *  Type2
+             *  Type3
+             *  <red>Type2</red>
+             *  ...
+             */
+        }
+
+
+        public static string GetMetadata()
+        {
+            //TODO implement GetMetadata
+            throw new NotImplementedException();
+            /*
+             sth like (as readonly object model)
+             * Type1
+             *      displayName: "MyType No. 1"
+             *      ...
+             *      rules:
+             *          properties "pass" and "confirm" must match
+             *          ...
+             *      int Property1
+             *          is required
+             *          must be in range 0-100
+             *          ...
+             *      ...
+             *  ...
+             */
+        }
     }
 }
