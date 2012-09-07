@@ -1,5 +1,6 @@
 ﻿using FluentMetadata.Specs.SampleClasses;
 using Xunit;
+using System;
 
 namespace FluentMetadata.Specs
 {
@@ -47,6 +48,14 @@ namespace FluentMetadata.Specs
         public void LastName_Required_is_not_set()
         {
             Assert.False(lastName.Required.HasValue);
+        }
+
+        [Fact]
+        public void Street_with_length_0_is_invalid()
+        {
+            //TODO implement a way to add specific rules for properties in components
+            var person = new Person { Address = new Address { Street = string.Empty } };
+            throw new NotImplementedException();
         }
     }
 }

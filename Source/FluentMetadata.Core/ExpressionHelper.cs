@@ -22,7 +22,7 @@ namespace FluentMetadata
             var memberExpression = expression as MemberExpression;
             if (memberExpression != null)
             {
-                return memberExpression.Member.Name;
+                return GetMemberName(memberExpression.Expression) + memberExpression.Member.Name;
             }
 
             return string.Empty;

@@ -4,6 +4,9 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
     {
         public PersonMetadata()
         {
+            Property(p => p.Address.Street)
+                .Is.Required()
+                .Length(1, 200);
             Property(p => p.FirstName)
                 .Is.Required();
             Class
