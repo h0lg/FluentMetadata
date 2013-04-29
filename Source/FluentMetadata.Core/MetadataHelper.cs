@@ -13,6 +13,7 @@ namespace FluentMetadata
             var targetBuilder = FluentMetadataBuilder.GetTypeBuilder(target);
 
             //copy property metadata
+            //TODO copy property metadata from hidden properties as well
             foreach (var sourcePropertyMetaData in new PropertyNameMetadataBuilder(source).NamedMetaData)
             {
                 if (target.GetProperties().Count(p => p.Name == sourcePropertyMetaData.PropertyName) > 0)
