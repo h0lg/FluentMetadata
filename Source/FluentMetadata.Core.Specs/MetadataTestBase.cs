@@ -3,11 +3,11 @@ using Xunit;
 
 namespace FluentMetadata.Specs
 {
-    public abstract class MetadataTestBase : IUseFixture<MetadataSetup>
+    public abstract class MetadataTestBase : IClassFixture<MetadataSetup>
     {
         Exception exception;
 
-        public void SetFixture(MetadataSetup data)
+        public MetadataTestBase(MetadataSetup data)
         {
             exception = data.Exception;
         }
