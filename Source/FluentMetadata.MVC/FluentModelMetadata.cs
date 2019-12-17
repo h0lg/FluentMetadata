@@ -14,4 +14,5 @@ namespace FluentMetadata.MVC
             MetadataMapper.CopyMetadata(metadata, this);
         }
     }
+
 }
