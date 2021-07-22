@@ -7,33 +7,14 @@ namespace FluentMetadata.Rules
     // ~ System.ComponentModel.DataAnnotations.StringLengthAttribute.MinimumLength
     public class StringLengthRule : Rule
     {
-        readonly int? minLength, maxLength;
-
-        internal int? Minimum
-        {
-            get
-            {
-                return minLength;
-            }
-        }
-
-        internal int? Maximum
-        {
-            get
-            {
-                return maxLength;
-            }
-        }
-
-        public override Type PropertyType
-        {
-            get { return typeof(string); }
-        }
+        internal int? Minimum { get; }
+        internal int? Maximum { get; }
+        public override Type PropertyType => typeof(string);
 
         public StringLengthRule(int maxLength)
             : base("the string for '{0}' should not be longer than {1} characters")
         {
-            this.maxLength = maxLength;
+            Maximum = maxLength;
         }
 
         public StringLengthRule(int minLength, int? maxLength)
@@ -41,8 +22,8 @@ namespace FluentMetadata.Rules
                 (maxLength.HasValue ? " between {2} and {1}" : " at least {2}") +
                 " characters long")
         {
-            this.minLength = minLength;
-            this.maxLength = maxLength;
+            Minimum = minLength;
+            Maximum = maxLength;
         }
 
         public override bool IsValid(object value)
@@ -50,12 +31,12 @@ namespace FluentMetadata.Rules
             var valueAsString = value as string;
             if (valueAsString == null)
             {
-                return minLength.HasValue ? false : true;
+                return Minimum.HasValue ? false : true;
             }
 
             var length = valueAsString.Length;
-            if (maxLength.HasValue && length > maxLength ||
-                minLength.HasValue && length < minLength)
+            if (Maximum.HasValue && length > Maximum ||
+                Minimum.HasValue && length < Minimum)
             {
                 return false;
             }
@@ -63,20 +44,8 @@ namespace FluentMetadata.Rules
             return true;
         }
 
-        public override string FormatErrorMessage(string name)
-        {
-            return string.Format(
-                CultureInfo.CurrentCulture,
-                ErrorMessageFormat,
-                name,
-                maxLength,
-                minLength);
-        }
-
-        protected override bool EqualsRule(Rule rule)
-        {
-            return rule is StringLengthRule;
-        }
+        public override string FormatErrorMessage(string name) => string.Format(CultureInfo.CurrentCulture, ErrorMessageFormat, name, Maximum, Minimum);
+        protected override bool EqualsRule(Rule rule) => rule is StringLengthRule;
     }
 
     //TODO [DerAlbertCom] implement or delete: What does this rule validate?

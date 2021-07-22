@@ -5,15 +5,9 @@ namespace FluentMetadata.Rules
 {
     public class RequiredRule : Rule
     {
-        public override Type PropertyType
-        {
-            get { return typeof(object); }
-        }
+        public override Type PropertyType => typeof(object);
 
-        public RequiredRule()
-            : base("a value for {0} is required")
-        {
-        }
+        public RequiredRule() : base("a value for {0} is required") { }
 
         public override bool IsValid(object value)
         {

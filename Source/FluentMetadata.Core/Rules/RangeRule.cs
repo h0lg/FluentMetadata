@@ -8,25 +8,11 @@ namespace FluentMetadata.Rules
         readonly Type propertyType;
         readonly IComparable maximum, minimum;
 
-        public override Type PropertyType
-        {
-            get { return propertyType; }
-        }
+        public override Type PropertyType => propertyType;
+        internal object Minimum => minimum;
+        internal object Maximum => maximum;
 
-        internal object Minimum
-        {
-            get { return minimum; }
-        }
-
-        internal object Maximum
-        {
-            get { return maximum; }
-        }
-
-        RangeRule()
-            : base("the value of '{0}' must be between {1} and {2}")
-        {
-        }
+        RangeRule() : base("the value of '{0}' must be between {1} and {2}") { }
 
         public RangeRule(IComparable minimum, IComparable maximum, Type propertyType)
             : this()
