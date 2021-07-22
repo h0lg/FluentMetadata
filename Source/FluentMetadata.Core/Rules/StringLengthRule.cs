@@ -7,20 +7,30 @@ namespace FluentMetadata.Rules
     // ~ System.ComponentModel.DataAnnotations.StringLengthAttribute.MinimumLength
     public class StringLengthRule : Rule
     {
+        /// <summary>A customizable function returning the error message format for the rule.
+        /// Contains placeholders {0} for the display name of the property and {2} for the maximum length.</summary>
+        public static Func<string> GetMaxLengthErrorMessageFormat = () => "'{0}' must not be longer than {2} characters";
+
+        /// <summary>A customizable function returning the error message format for the rule.
+        /// Contains placeholders {0} for the display name of the property and {1} for the minimum length.</summary>
+        public static Func<string> GetMinLengthErrorMessageFormat = () => "'{0}' must be at least {1} characters long";
+
+        /// <summary>A customizable function returning the error message format for the rule.
+        /// Contains placeholders {0} for the display name of the property, {1} for the minimum and {2} for the maximum length.</summary>
+        public static Func<string> GetLengthRangeErrorMessageFormat = () => "'{0}' must be between {1} and {2} characters long";
+
         internal int? Minimum { get; }
         internal int? Maximum { get; }
         public override Type PropertyType => typeof(string);
 
         public StringLengthRule(int maxLength)
-            : base("the string for '{0}' should not be longer than {1} characters")
+            : base(GetMaxLengthErrorMessageFormat())
         {
             Maximum = maxLength;
         }
 
         public StringLengthRule(int minLength, int? maxLength)
-            : base("'{0}' must be " +
-                (maxLength.HasValue ? " between {2} and {1}" : " at least {2}") +
-                " characters long")
+            : base(maxLength.HasValue ? GetLengthRangeErrorMessageFormat() : GetMinLengthErrorMessageFormat())
         {
             Minimum = minLength;
             Maximum = maxLength;
@@ -44,7 +54,7 @@ namespace FluentMetadata.Rules
             return true;
         }
 
-        public override string FormatErrorMessage(string name) => string.Format(CultureInfo.CurrentCulture, ErrorMessageFormat, name, Maximum, Minimum);
+        public override string FormatErrorMessage(string name) => string.Format(CultureInfo.CurrentCulture, ErrorMessageFormat, name, Minimum, Maximum);
         protected override bool EqualsRule(Rule rule) => rule is StringLengthRule;
     }
 

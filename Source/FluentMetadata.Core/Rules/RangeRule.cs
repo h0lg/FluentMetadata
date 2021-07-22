@@ -5,6 +5,10 @@ namespace FluentMetadata.Rules
 {
     public class RangeRule : Rule
     {
+        /// <summary>A customizable function returning the error message format for the rule.
+        /// Contains placeholders {0} for the display name of the property, {1} for the minimum and {2} for the maximum.</summary>
+        public static Func<string> GetErrorMessageFormat = () => "the value of '{0}' must be between {1} and {2}";
+
         readonly Type propertyType;
         readonly IComparable maximum, minimum;
 
@@ -12,7 +16,7 @@ namespace FluentMetadata.Rules
         internal object Minimum => minimum;
         internal object Maximum => maximum;
 
-        RangeRule() : base("the value of '{0}' must be between {1} and {2}") { }
+        RangeRule() : base(GetErrorMessageFormat()) { }
 
         public RangeRule(IComparable minimum, IComparable maximum, Type propertyType)
             : this()

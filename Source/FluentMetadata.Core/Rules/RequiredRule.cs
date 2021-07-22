@@ -5,9 +5,13 @@ namespace FluentMetadata.Rules
 {
     public class RequiredRule : Rule
     {
+        /// <summary>A customizable function returning the error message format for the rule.
+        /// Contains placeholder {0} for the display name of the property.</summary>
+        public static Func<string> GetErrorMessageFormat = () => "a value for {0} is required";
+
         public override Type PropertyType => typeof(object);
 
-        public RequiredRule() : base("a value for {0} is required") { }
+        public RequiredRule() : base(GetErrorMessageFormat()) { }
 
         public override bool IsValid(object value)
         {

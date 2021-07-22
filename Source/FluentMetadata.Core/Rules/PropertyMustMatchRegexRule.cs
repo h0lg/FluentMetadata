@@ -6,12 +6,16 @@ namespace FluentMetadata.Rules
 {
     public class PropertyMustMatchRegexRule : Rule
     {
+        /// <summary>A customizable function returning the error message format for the rule.
+        /// Contains placeholder {0} for the display name of the property.</summary>
+        public static Func<string> GetErrorMessageFormat = () => "the value for {0} is not in the correct format";
+
         internal readonly string Pattern;
 
         public override Type PropertyType => typeof(string);
 
         public PropertyMustMatchRegexRule(string pattern)
-            : base("the value for {0} is not in the correct format")
+            : base(GetErrorMessageFormat())
         {
             Pattern = pattern;
         }
