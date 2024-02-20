@@ -5,7 +5,7 @@ namespace FluentMetadata.Specs
 {
     public class BaseClass_Tests : MetadataTestBase
     {
-        readonly Metadata id, active;
+        private readonly Metadata id, active;
 
         public BaseClass_Tests()
         {
@@ -28,7 +28,7 @@ namespace FluentMetadata.Specs
 
     public class DerivedClass_Tests : MetadataTestBase
     {
-        readonly Metadata id, title;
+        private readonly Metadata id, title;
 
         public DerivedClass_Tests()
         {
@@ -51,7 +51,7 @@ namespace FluentMetadata.Specs
 
     public class DerivedDerivedClass_Tests : MetadataTestBase
     {
-        readonly Metadata id, title;
+        private readonly Metadata id, title;
 
         public DerivedDerivedClass_Tests()
         {
