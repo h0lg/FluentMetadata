@@ -24,7 +24,7 @@ namespace FluentMetadata.AutoMapper
                 {
                     maps.Add(new MemberMap
                     {
-                        SourceName = propertyMap.SourceMembers.Count() > 1 ?
+                        SourceName = propertyMap.SourceMembers.Count > 1 ?
                             propertyMap.SourceMembers.Aggregate(string.Empty, (result, svr) => result + svr.Name) :
                             propertyMap.SourceMember.Name,
                         DestinationName = propertyMap.DestinationProperty.Name
