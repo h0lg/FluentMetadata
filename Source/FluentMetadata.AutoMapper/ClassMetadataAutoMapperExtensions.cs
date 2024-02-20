@@ -3,12 +3,12 @@
 namespace FluentMetadata.AutoMapper
 {
     /// <summary>
-    /// AutoMapper extensions to <see cref="FluentMetadata.ClassMetadata&lt;T>"/>
+    /// AutoMapper extensions to <see cref="ClassMetadata{T}"/>
     /// </summary>
     public static class ClassMetadataAutoMapperExtensions
     {
         /// <summary>
-        /// Copies the the source type's metadata to the destination type's metadata
+        /// Copies the source type's metadata to the destination type's metadata
         /// using the mapping information provided by AutoMapper.
         /// </summary>
         /// <typeparam name="TDestination">The type of the destination.</typeparam>
@@ -17,7 +17,9 @@ namespace FluentMetadata.AutoMapper
         public static void CopyAutoMappedMetadataFrom<TDestination>(this ClassMetadata<TDestination> to, Type from)
         {
             var destinationType = typeof(TDestination);
-            MetadataHelper.CopyMappedMetadata(from, destinationType, AutoMapperHelper.GetMemberMapsOf(from, destinationType));
+
+            MetadataHelper.CopyMappedMetadata(from, destinationType, MapperConfigurationExtensions.GetMapperConfiguration()
+                .GetMemberMapsOf(from, destinationType));
         }
     }
 }

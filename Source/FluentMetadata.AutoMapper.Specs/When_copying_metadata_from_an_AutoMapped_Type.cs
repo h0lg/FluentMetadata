@@ -10,20 +10,23 @@ namespace FluentMetadata.AutoMapper.Specs
         public When_copying_metadata_from_an_AutoMapped_Type()
         {
             FluentMetadataBuilder.Reset();
-            Mapper.Reset();
 
-            Mapper.Initialize(cfg =>
+            // add all  see https://docs.automapper.org/en/stable/Configuration.html#assembly-scanning-for-auto-configuration
+            var config = new MapperConfiguration(cfg =>
             {
-                cfg.ShouldMapProperty = pi => true; //in order to test NonPublic member mapping as well
+                /*  in order to test NonPublic member mapping as well,
+                 *  see https://docs.automapper.org/en/stable/Configuration.html#configuring-visibility */
+                cfg.ShouldMapProperty = _property => true;
 
+                // add maps, see https://docs.automapper.org/en/stable/Configuration.html#configuration
                 cfg.CreateMap<Source, Destination>()
                     .ForMember(d => d.Renamed, o => o.MapFrom(s => s.Named))
-                    .ForMember(d => d.IntProperty, o => o.ResolveUsing<FakeResolver, string>(s => s.StringField));
+                    .ForMember(d => d.IntProperty, o => o.MapFrom<FakeResolver, string>(s => s.StringField));
             });
 
-            Mapper.AssertConfigurationIsValid();
+            MapperConfigurationExtensions.GetMapperConfiguration = () => config;
+            config.AssertConfigurationIsValid();
             FluentMetadataBuilder.ForAssemblyOfType<Source>();
-
             destinationMetadata = QueryFluentMetadata.GetMetadataFor(typeof(Destination));
         }
 
