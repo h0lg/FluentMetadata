@@ -9,8 +9,8 @@ namespace FluentMetadata.Specs
 
         public BaseClass_Tests()
         {
-            id = QueryFluentMetadata.GetMetadataFor(typeof(BaseClass), "Id");
-            active = QueryFluentMetadata.GetMetadataFor(typeof(BaseClass), "Active");
+            id = QueryFluentMetadata.GetMetadataFor(typeof(BaseClass), nameof(BaseClass.Id));
+            active = QueryFluentMetadata.GetMetadataFor(typeof(BaseClass), nameof(BaseClass.Active));
         }
 
         [Fact]
@@ -32,8 +32,8 @@ namespace FluentMetadata.Specs
 
         public DerivedClass_Tests()
         {
-            id = QueryFluentMetadata.GetMetadataFor(typeof(DerivedClass), "Id");
-            title = QueryFluentMetadata.GetMetadataFor(typeof(DerivedClass), "Title");
+            id = QueryFluentMetadata.GetMetadataFor(typeof(DerivedClass), nameof(DerivedClass.Id));
+            title = QueryFluentMetadata.GetMetadataFor(typeof(DerivedClass), nameof(DerivedClass.Title));
         }
 
         [Fact]
@@ -55,8 +55,8 @@ namespace FluentMetadata.Specs
 
         public DerivedDerivedClass_Tests()
         {
-            id = QueryFluentMetadata.GetMetadataFor(typeof(DerivedDerivedClass), "Id");
-            title = QueryFluentMetadata.GetMetadataFor(typeof(DerivedDerivedClass), "Title");
+            id = QueryFluentMetadata.GetMetadataFor(typeof(DerivedDerivedClass), nameof(DerivedDerivedClass.Id));
+            title = QueryFluentMetadata.GetMetadataFor(typeof(DerivedDerivedClass), nameof(DerivedDerivedClass.Title));
         }
 
         [Fact]
