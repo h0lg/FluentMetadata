@@ -6,7 +6,7 @@ using AutoMapper;
 
 namespace FluentMetadata.AutoMapper
 {
-    internal class AutoMapperHelper
+    internal static class AutoMapperHelper
     {
         /// <summary>
         /// Gets the mapped members for a source/destination type pair.
