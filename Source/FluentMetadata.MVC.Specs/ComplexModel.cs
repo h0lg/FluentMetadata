@@ -58,7 +58,7 @@ namespace FluentMetadata.MVC.Specs
         [DisplayFormat(NullDisplayText = "No lastname set")]
         [RegularExpression("^[A-Z]'?[- a-zA-Z]+$")]
         [AllowHtml]
-        [Compare("FirstName")]
+        [System.Web.Mvc.Compare("FirstName")]
         [StringLength(50)]
         public string LastName { get; set; }
 
