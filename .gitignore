@@ -20,3 +20,4 @@ Source/_UpgradeReport_Files/
 Source/UpgradeLog*
 Source/packages
 Source/.vs
+*.csproj.dtbcache.json
