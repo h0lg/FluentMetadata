@@ -34,7 +34,8 @@ namespace FluentMetadata.AutoMapper
                 {
                     maps.Add(new MemberMap
                     {
-                        SourceName = propertyMap.ValueResolverConfig.SourceMemberName ?? ExpressionHelper.GetPropertyName(propertyMap.ValueResolverConfig.SourceMember),
+                        SourceName = propertyMap.ValueResolverConfig.SourceMemberName
+                            ?? ExpressionHelper.GetPropertyName(propertyMap.ValueResolverConfig.SourceMember),
                         DestinationName = propertyMap.DestinationProperty.Name
                     });
                 }
