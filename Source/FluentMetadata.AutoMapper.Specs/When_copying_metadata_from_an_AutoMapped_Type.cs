@@ -1,5 +1,4 @@
 using AutoMapper;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FluentMetadata.AutoMapper.Specs
 {
