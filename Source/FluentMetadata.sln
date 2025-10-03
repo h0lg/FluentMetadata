@@ -1,17 +1,17 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentMetadata.Core", "FluentMetadata.Core\FluentMetadata.Core.csproj", "{C73F37FA-D859-4714-8335-35069322176A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentMetadata.Core", "FluentMetadata.Core\FluentMetadata.Core.csproj", "{C73F37FA-D859-4714-8335-35069322176A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentMetadata.Core.Specs", "FluentMetadata.Core.Specs\FluentMetadata.Core.Specs.csproj", "{A699E2AB-B62B-4F0D-90C4-C39500430A70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentMetadata.Core.Specs", "FluentMetadata.Core.Specs\FluentMetadata.Core.Specs.csproj", "{A699E2AB-B62B-4F0D-90C4-C39500430A70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentMetadata.FluentNHibernate", "FluentMetadata.FluentNHibernate\FluentMetadata.FluentNHibernate.csproj", "{E38E05E3-6A51-4853-B0D7-09549B9199F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentMetadata.FluentNHibernate", "FluentMetadata.FluentNHibernate\FluentMetadata.FluentNHibernate.csproj", "{E38E05E3-6A51-4853-B0D7-09549B9199F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentMetadata.MVC", "FluentMetadata.MVC\FluentMetadata.MVC.csproj", "{36C0A3A5-7B0D-4F89-B9BC-C11D0C6A34B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentMetadata.MVC", "FluentMetadata.MVC\FluentMetadata.MVC.csproj", "{36C0A3A5-7B0D-4F89-B9BC-C11D0C6A34B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentMetadata.MVC.Specs", "FluentMetadata.MVC.Specs\FluentMetadata.MVC.Specs.csproj", "{EB81FC78-9EAC-4664-989C-83A81F8D9D3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentMetadata.MVC.Specs", "FluentMetadata.MVC.Specs\FluentMetadata.MVC.Specs.csproj", "{EB81FC78-9EAC-4664-989C-83A81F8D9D3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentMetadata.EntityFramework", "FluentMetadata.EntityFramework\FluentMetadata.EntityFramework.csproj", "{D5D11205-062C-48DA-91E9-D5C5559F79AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentMetadata.EntityFramework", "FluentMetadata.EntityFramework\FluentMetadata.EntityFramework.csproj", "{D5D11205-062C-48DA-91E9-D5C5559F79AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{E054E581-E988-4CBF-B469-79F9A068CF1E}"
 EndProject
@@ -21,15 +21,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{D157C0A3-E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NHibernate", "NHibernate", "{59447A7B-9A5C-42A2-A537-E46FD1976DEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentMetadata.EntityFramework.Specs", "FluentMetadata.EntityFramework.Specs\FluentMetadata.EntityFramework.Specs.csproj", "{5D1FB10C-0618-4FAE-A5E8-558D791E15AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentMetadata.EntityFramework.Specs", "FluentMetadata.EntityFramework.Specs\FluentMetadata.EntityFramework.Specs.csproj", "{5D1FB10C-0618-4FAE-A5E8-558D791E15AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentMetadata.FluentNHibernate.Specs", "FluentMetadata.FluentNHibernate.Specs\FluentMetadata.FluentNHibernate.Specs.csproj", "{D04930F5-0956-4D51-819C-6239EF833908}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentMetadata.FluentNHibernate.Specs", "FluentMetadata.FluentNHibernate.Specs\FluentMetadata.FluentNHibernate.Specs.csproj", "{D04930F5-0956-4D51-819C-6239EF833908}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AutoMapper", "AutoMapper", "{2D4BB097-1095-42D2-8BE2-ADFF5077F8CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentMetadata.AutoMapper", "FluentMetadata.AutoMapper\FluentMetadata.AutoMapper.csproj", "{3EA6A0AC-8377-4C2F-A0EA-61278245620E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentMetadata.AutoMapper", "FluentMetadata.AutoMapper\FluentMetadata.AutoMapper.csproj", "{3EA6A0AC-8377-4C2F-A0EA-61278245620E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentMetadata.AutoMapper.Specs", "FluentMetadata.AutoMapper.Specs\FluentMetadata.AutoMapper.Specs.csproj", "{36BC8904-D8F8-4778-A5BB-F27F1346BAE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentMetadata.AutoMapper.Specs", "FluentMetadata.AutoMapper.Specs\FluentMetadata.AutoMapper.Specs.csproj", "{36BC8904-D8F8-4778-A5BB-F27F1346BAE9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{33610756-F24B-4127-88FE-90F0811423B2}"
 	ProjectSection(SolutionItems) = preProject
