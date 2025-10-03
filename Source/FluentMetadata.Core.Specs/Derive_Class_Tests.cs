@@ -1,8 +1,8 @@
 using FluentMetadata.Specs.SampleClasses;
-using Xunit;
 
 namespace FluentMetadata.Specs
 {
+    [TestClass]
     public class BaseClass_Tests : MetadataTestBase
     {
         private readonly Metadata id, active;
@@ -13,16 +13,16 @@ namespace FluentMetadata.Specs
             active = QueryFluentMetadata.GetMetadataFor(typeof(BaseClass), nameof(BaseClass.Active));
         }
 
-        [Fact]
+        [TestMethod]
         public void Id_Required_is_True()
         {
-            id.Required.Value.ShouldBeTrue();
+            Assert.IsTrue(id.Required!.Value);
         }
 
-        [Fact]
+        [TestMethod]
         public void Active_Required_is_Null()
         {
-            active.Required.ShouldBeNull();
+            Assert.IsNull(active.Required);
         }
     }
 
@@ -36,16 +36,16 @@ namespace FluentMetadata.Specs
             title = QueryFluentMetadata.GetMetadataFor(typeof(DerivedClass), nameof(DerivedClass.Title));
         }
 
-        [Fact]
+        [TestMethod]
         public void Title_Required_is_true()
         {
-            title.Required.Value.ShouldBeTrue();
+            Assert.IsTrue(title.Required!.Value);
         }
 
-        [Fact]
+        [TestMethod]
         public void Id_Required_is_True()
         {
-            id.Required.Value.ShouldBeTrue();
+            Assert.IsTrue(id.Required!.Value);
         }
     }
 
@@ -59,16 +59,16 @@ namespace FluentMetadata.Specs
             title = QueryFluentMetadata.GetMetadataFor(typeof(DerivedDerivedClass), nameof(DerivedDerivedClass.Title));
         }
 
-        [Fact]
+        [TestMethod]
         public void Title_Required_is_true()
         {
-            title.Required.Value.ShouldBeTrue();
+            Assert.IsTrue(title.Required!.Value);
         }
 
-        [Fact]
+        [TestMethod]
         public void Id_Required_is_True()
         {
-            id.Required.Value.ShouldBeTrue();
+            Assert.IsTrue(id.Required!.Value);
         }
     }
 }

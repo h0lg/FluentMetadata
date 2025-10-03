@@ -1,45 +1,45 @@
 using FluentMetadata.EntityFramework.Internal;
 using FluentMetadata.EntityFramework.Specs.DomainObjects;
-using Xunit;
 
 namespace FluentMetadata.EntityFramework.Specs
 {
+    [TestClass]
     public class ExpressionGenerator_with_ContentBase_Tests
     {
-        [Fact]
+        [TestMethod]
         public void Generate_for_Id()
         {
-            Assert.NotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(ContentBase), "Id"));
+            Assert.IsNotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(ContentBase), "Id"));
         }
 
-        [Fact]
+        [TestMethod]
         public void Generate_for_Created()
         {
-            Assert.NotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(ContentBase), "Created"));
+            Assert.IsNotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(ContentBase), "Created"));
         }
 
-        [Fact]
+        [TestMethod]
         public void Generate_for_Title()
         {
-            Assert.NotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(ContentBase), "Title"));
+            Assert.IsNotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(ContentBase), "Title"));
         }
 
-        [Fact]
+        [TestMethod]
         public void Generate_for_Author()
         {
-            Assert.NotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(ContentBase), "Author"));
+            Assert.IsNotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(ContentBase), "Author"));
         }
 
-        [Fact]
+        [TestMethod]
         public void Generate_for_Comments()
         {
-            Assert.NotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(ContentBase), "Comments"));
+            Assert.IsNotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(ContentBase), "Comments"));
         }
 
-        [Fact]
+        [TestMethod]
         public void Generate_for_Layout()
         {
-            Assert.NotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(ContentBase), "Layout"));
+            Assert.IsNotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(ContentBase), "Layout"));
         }
     }
 }

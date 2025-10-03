@@ -1,45 +1,45 @@
 using FluentMetadata.EntityFramework.Internal;
 using FluentMetadata.EntityFramework.Specs.DomainObjects;
-using Xunit;
 
 namespace FluentMetadata.EntityFramework.Specs
 {
+    [TestClass]
     public class ExpressionGenerator_with_Content_Tests
     {
-        [Fact]
+        [TestMethod]
         public void Generate_for_Id()
         {
-            Assert.NotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(Content), "Id"));
+            Assert.IsNotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(Content), "Id"));
         }
 
-        [Fact]
+        [TestMethod]
         public void Generate_for_Created()
         {
-            Assert.NotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(Content), "Created"));
+            Assert.IsNotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(Content), "Created"));
         }
 
-        [Fact]
+        [TestMethod]
         public void Generate_for_Title()
         {
-            Assert.NotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(Content), "Title"));
+            Assert.IsNotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(Content), "Title"));
         }
 
-        [Fact]
+        [TestMethod]
         public void Generate_for_Author()
         {
-            Assert.NotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(Content), "Author"));
+            Assert.IsNotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(Content), "Author"));
         }
 
-        [Fact]
+        [TestMethod]
         public void Generate_for_Comments()
         {
-            Assert.NotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(Content), "Comments"));
+            Assert.IsNotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(Content), "Comments"));
         }
 
-        [Fact]
+        [TestMethod]
         public void Generate_for_WebSite()
         {
-            Assert.NotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(Content), "WebSite"));
+            Assert.IsNotNull(ExpressionGenerator.CreateExpressionForProperty(typeof(Content), "WebSite"));
         }
     }
 }

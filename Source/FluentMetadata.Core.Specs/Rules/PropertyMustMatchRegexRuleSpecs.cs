@@ -1,83 +1,78 @@
 using FluentMetadata.Rules;
-using Xunit;
 
 namespace FluentMetadata.Specs.Rules
 {
-    [Concern(typeof(PropertyMustMatchRegexRule))]
-    public class When_property_value_should_match_a_regex : InstanceContextSpecification<PropertyMustMatchRegexRule>
+    [TestClass]
+    public class When_property_value_should_match_a_regex
     {
-        protected override void Because()
-        {
-        }
+        private readonly PropertyMustMatchRegexRule Sut;
 
-        protected override PropertyMustMatchRegexRule CreateSut()
+        public When_property_value_should_match_a_regex()
         {
             //from http://regexlib.com/REDetails.aspx?regexp_id=96
             const string validUri = @"(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?";
-            return new PropertyMustMatchRegexRule(validUri);
+            Sut = new PropertyMustMatchRegexRule(validUri);
         }
-        
-        [Observation]
+
+        [TestMethod]
         public void A_null_value_is_valid() // because to check this is the responsibility of the RequiredRule
         {
-            Sut.IsValid(null).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(null));
         }
 
-        [Observation]
+        [TestMethod]
         public void A_value_matching_the_pattern_is_valid()
         {
-            Sut.IsValid("http://regexlib.com/REDetails.aspx?regexp_id=96").ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid("http://regexlib.com/REDetails.aspx?regexp_id=96"));
         }
 
-        [Observation]
+        [TestMethod]
         public void A_value_not_matching_the_pattern_is_invalid()
         {
-            Sut.IsValid("regexlib.com/REDetails.aspx?regexp_id=96").ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid("regexlib.com/REDetails.aspx?regexp_id=96"));
         }
 
-        [Observation]
+        [TestMethod]
         public void An_empty_string_value_is_valid() // because to check this is not the responsibility of the PropertyMustMatchRegexRule
         {
-            Sut.IsValid(string.Empty).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(string.Empty));
         }
     }
 
-    [Concern(typeof(PropertyMustNotMatchRegexRule))]
-    public class When_property_value_should_not_match_a_regex : InstanceContextSpecification<PropertyMustNotMatchRegexRule>
+    [TestClass]
+    public class When_property_value_should_not_match_a_regex
     {
-        protected override void Because()
-        {
-        }
+        private readonly PropertyMustNotMatchRegexRule Sut;
 
-        protected override PropertyMustNotMatchRegexRule CreateSut()
+        public When_property_value_should_not_match_a_regex()
         {
             //from http://regexlib.com/REDetails.aspx?regexp_id=96
             const string validUri = @"(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?";
-            return new PropertyMustNotMatchRegexRule(validUri);
+            Sut = new PropertyMustNotMatchRegexRule(validUri);
         }
 
-        [Observation]
+        [TestMethod]
         public void A_null_value_is_valid() // because to check this is the responsibility of the RequiredRule
         {
-            Sut.IsValid(null).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(null));
         }
 
-        [Observation]
+        [TestMethod]
         public void A_value_matching_the_pattern_is_valid()
         {
-            Sut.IsValid("http://regexlib.com/REDetails.aspx?regexp_id=96").ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid("http://regexlib.com/REDetails.aspx?regexp_id=96"));
         }
 
-        [Observation]
+        [TestMethod]
         public void A_value_not_matching_the_pattern_is_invalid()
         {
-            Sut.IsValid("regexlib.com/REDetails.aspx?regexp_id=96").ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid("regexlib.com/REDetails.aspx?regexp_id=96"));
         }
 
-        [Observation]
+        [TestMethod]
         public void An_empty_string_value_is_valid() // because to check this is not the responsibility of the PropertyMustMatchRegexRule
         {
-            Sut.IsValid(string.Empty).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(string.Empty));
         }
     }
 }

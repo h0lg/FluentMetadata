@@ -1,164 +1,154 @@
-using System;
 using FluentMetadata.Rules;
-using Xunit;
 
 namespace FluentMetadata.Specs.Rules
 {
-    [Concern(typeof(RangeRule))]
-    public abstract class ConcernOfRangeRule : InstanceContextSpecification<RangeRule>
+    public abstract class ConcernOfRangeRule(RangeRule sut)
     {
-        protected override void Because()
-        {
-        }
+        protected readonly RangeRule Sut = sut;
     }
 
+    [TestClass]
     public class When_the_range_is_between_100_and_200 : ConcernOfRangeRule
     {
-        protected override RangeRule CreateSut()
-        {
-            return new RangeRule(100, 200, typeof(int));
-        }
+        public When_the_range_is_between_100_and_200() : base(new RangeRule(100, 200, typeof(int))) { }
 
-        [Observation]
+        [TestMethod]
         public void Should_150_is_in_range()
         {
-            Sut.IsValid(150).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(150));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_100_is_in_range()
         {
-            Sut.IsValid(100).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(100));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_200_is_in_range()
         {
-            Sut.IsValid(200).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(200));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_201_is_out_of_range()
         {
-            Sut.IsValid(201).ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid(201));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_250_is_out_of_range()
         {
-            Sut.IsValid(250).ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid(250));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_50_is_out_of_range()
         {
-            Sut.IsValid(50).ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid(50));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_99_is_out_of_range()
         {
-            Sut.IsValid(99).ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid(99));
         }
     }
 
+    [TestClass]
     public class When_the_range_is_between_100_0_and_200_0 : ConcernOfRangeRule
     {
-        protected override RangeRule CreateSut()
-        {
-            return new RangeRule(100.0, 200.0, typeof(double));
-        }
+        public When_the_range_is_between_100_0_and_200_0() : base(new RangeRule(100.0, 200.0, typeof(double))) { }
 
-        [Observation]
+        [TestMethod]
         public void Should_150_0_is_in_range()
         {
-            Sut.IsValid(150.0).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(150.0));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_100_0_is_in_range()
         {
-            Sut.IsValid(100.0).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(100.0));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_200_0_is_in_range()
         {
-            Sut.IsValid(200.0).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(200.0));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_250_0_is_out_of_range()
         {
-            Sut.IsValid(250.0).ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid(250.0));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_50_0_is_out_of_range()
         {
-            Sut.IsValid(50.0).ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid(50.0));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_99_9_is_out_of_range()
         {
-            Sut.IsValid(99.9).ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid(99.9));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_200_1_is_out_of_range()
         {
-            Sut.IsValid(200.1).ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid(200.1));
         }
     }
 
+    [TestClass]
     public class When_the_range_is_between_1_1_2010_and_5_5_2010 : ConcernOfRangeRule
     {
-        protected override RangeRule CreateSut()
-        {
-            return new RangeRule(new DateTime(2010, 1, 1), new DateTime(2010, 5, 5), typeof(DateTime));
-        }
+        public When_the_range_is_between_1_1_2010_and_5_5_2010()
+            : base(new RangeRule(new DateTime(2010, 1, 1), new DateTime(2010, 5, 5), typeof(DateTime))) { }
 
-        [Observation]
+        [TestMethod]
         public void Should_2_2_2010_is_in_range()
         {
-            Sut.IsValid(new DateTime(2010, 2, 2)).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(new DateTime(2010, 2, 2)));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_1_1_2010_is_in_range()
         {
-            Sut.IsValid(new DateTime(2010, 1, 1)).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(new DateTime(2010, 1, 1)));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_5_5_2010_is_in_range()
         {
-            Sut.IsValid(new DateTime(2010, 5, 5)).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(new DateTime(2010, 5, 5)));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_6_6_2011_0_is_out_of_range()
         {
-            Sut.IsValid(new DateTime(2011, 6, 6)).ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid(new DateTime(2011, 6, 6)));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_1_1_2009_is_out_of_range()
         {
-            Sut.IsValid(new DateTime(2009, 1, 1)).ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid(new DateTime(2009, 1, 1)));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_31_12_2009_is_out_of_range()
         {
-            Sut.IsValid(new DateTime(2009, 12, 31)).ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid(new DateTime(2009, 12, 31)));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_6_5_2010_is_out_of_range()
         {
-            Sut.IsValid(new DateTime(2010, 5, 6)).ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid(new DateTime(2010, 5, 6)));
         }
     }
 }

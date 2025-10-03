@@ -1,38 +1,37 @@
-using System.Linq;
 using FluentMetadata.Rules;
-using Xunit;
 
 namespace FluentMetadata.Specs
 {
+    [TestClass]
     public class MetadataTests
     {
-        readonly Metadata metadata;
+        private readonly Metadata metadata;
 
         public MetadataTests()
         {
             metadata = new Metadata();
         }
 
-        [Fact]
+        [TestMethod]
         public void RulesAreEmptyAndRequiredHasNoValueWhenCreatingANewInstance()
         {
-            Assert.False(metadata.Required.HasValue);
-            Assert.Equal(0, metadata.Rules.Count());
+            Assert.IsFalse(metadata.Required.HasValue);
+            Assert.AreEqual(0, metadata.Rules.Count());
         }
 
-        [Fact]
+        [TestMethod]
         public void SettingRequiredAddsARequiredRule()
         {
             metadata.Required = true;
-            Assert.Equal(1, metadata.Rules.OfType<RequiredRule>().Count());
+            Assert.AreEqual(1, metadata.Rules.OfType<RequiredRule>().Count());
         }
 
-        [Fact]
+        [TestMethod]
         public void SettingNotRequiredAfterSettingRequiredRemovesTheRequiredAgain()
         {
             metadata.Required = true;
             metadata.Required = false;
-            Assert.Equal(0, metadata.Rules.OfType<RequiredRule>().Count());
+            Assert.AreEqual(0, metadata.Rules.OfType<RequiredRule>().Count());
         }
     }
 }

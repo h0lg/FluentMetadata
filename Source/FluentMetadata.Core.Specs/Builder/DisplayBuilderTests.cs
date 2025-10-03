@@ -1,5 +1,4 @@
 using FluentMetadata.Builder;
-using Xunit;
 
 namespace FluentMetadata.Specs.Builder
 {
@@ -14,70 +13,70 @@ namespace FluentMetadata.Specs.Builder
             builder = new DisplayBuilder<DummyClass, string>(new PropertyMetadataBuilder<DummyClass, string>(metadata));
         }
 
-        [Fact]
+        [TestMethod]
         public void DisplayBuilder_Ctor_NullText_IsNull()
         {
-            Assert.Null(metadata.GetNullDisplayText());
+            Assert.IsNull(metadata.GetNullDisplayText());
         }
 
-        [Fact]
+        [TestMethod]
         public void DisplayBuilder_Ctor_Format_IsNull()
         {
-            Assert.Null(metadata.GetDisplayFormat());
+            Assert.IsNull(metadata.GetDisplayFormat());
         }
 
-        [Fact]
+        [TestMethod]
         public void DisplayBuilder_Ctor_Name_IsNull()
         {
-            Assert.Null(metadata.GetDisplayName());
+            Assert.IsNull(metadata.GetDisplayName());
         }
 
-        [Fact]
+        [TestMethod]
         public void DisplayBuilder_NullText_NullText_IsValue()
         {
             builder.NullText("TheNullText");
-            Assert.Equal("TheNullText", metadata.GetNullDisplayText());
-            Assert.Null(metadata.GetDisplayName());
-            Assert.Null(metadata.GetDisplayFormat());
+            Assert.AreEqual("TheNullText", metadata.GetNullDisplayText());
+            Assert.IsNull(metadata.GetDisplayName());
+            Assert.IsNull(metadata.GetDisplayFormat());
         }
 
-        [Fact]
+        [TestMethod]
         public void DisplayBuilder_Name_Name_IsValue()
         {
             builder.Name("TheNameText");
-            Assert.Equal("TheNameText", metadata.GetDisplayName());
-            Assert.Null(metadata.GetNullDisplayText());
-            Assert.Null(metadata.GetDisplayFormat());
+            Assert.AreEqual("TheNameText", metadata.GetDisplayName());
+            Assert.IsNull(metadata.GetNullDisplayText());
+            Assert.IsNull(metadata.GetDisplayFormat());
         }
 
-        [Fact]
+        [TestMethod]
         public void DisplayBuilder_Name_Function_Equals_Metadata_DisplayName()
         {
             const string displayName = "asdf";
             builder.Name(() => displayName);
-            Assert.Equal(displayName, metadata.GetDisplayName());
-            Assert.Null(metadata.GetNullDisplayText());
-            Assert.Null(metadata.GetDisplayFormat());
+            Assert.AreEqual(displayName, metadata.GetDisplayName());
+            Assert.IsNull(metadata.GetNullDisplayText());
+            Assert.IsNull(metadata.GetDisplayFormat());
         }
 
-        [Fact]
+        [TestMethod]
         public void DisplayBuilder_Format_Format_IsValue()
         {
             builder.Format("TheFormatText");
-            Assert.Equal("TheFormatText", metadata.GetDisplayFormat());
-            Assert.Null(metadata.GetNullDisplayText());
-            Assert.Null(metadata.GetDisplayName());
+            Assert.AreEqual("TheFormatText", metadata.GetDisplayFormat());
+            Assert.IsNull(metadata.GetNullDisplayText());
+            Assert.IsNull(metadata.GetDisplayName());
         }
 
-        [Fact]
+        [TestMethod]
         public void DisplayBuilder_Allset_IsValue()
         {
             builder.Format("TheFormatText");
             builder.Name("TheNameText");
             builder.NullText("TheNullText");
-            Assert.Equal("TheFormatText", metadata.GetDisplayFormat());
-            Assert.Equal("TheNameText", metadata.GetDisplayName());
-            Assert.Equal("TheNullText", metadata.GetNullDisplayText());
+            Assert.AreEqual("TheFormatText", metadata.GetDisplayFormat());
+            Assert.AreEqual("TheNameText", metadata.GetDisplayName());
+            Assert.AreEqual("TheNullText", metadata.GetNullDisplayText());
         }
     }
 }

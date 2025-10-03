@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using FluentMetadata.Rules;
-using Xunit;
 
 namespace FluentMetadata.Specs.Builder
 {
+    [TestClass]
     public class When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata
     {
-        readonly List<Type> builtMetadata = FluentMetadataBuilder.BuiltMetadataDefininitions;
-        readonly IEnumerable<IRule> someViewModelRules, someViewModelMyPropertyRules, someViewModelMyStringPropertyRules;
-        readonly Exception exception;
+        private readonly List<Type> builtMetadata = FluentMetadataBuilder.BuiltMetadataDefininitions;
+        private readonly IEnumerable<IRule> someViewModelRules, someViewModelMyPropertyRules, someViewModelMyStringPropertyRules;
+        private readonly Exception exception;
 
         public When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata()
         {
@@ -40,118 +37,119 @@ namespace FluentMetadata.Specs.Builder
                     t.Is<IClassMetadata>());
         }
 
-        [Fact]
+        [TestMethod]
         public void It_does_not_throw_an_exception()
         {
-            Assert.Null(exception);
+            Assert.IsNull(exception);
         }
 
-        [Fact]
+        [TestMethod]
         public void Dependent_metadata_may_be_built_before_its_dependency()
         {
-            Assert.True(
+            Assert.IsTrue(
                 builtMetadata.IndexOf(typeof(SomeViewModelMetadata)) <
                 builtMetadata.IndexOf(typeof(SomeDomainModelMetadata)));
         }
 
-        [Fact]
+        [TestMethod]
         public void Dependent_metadata_is_built_again_after_its_dependencies_because_it_copies_metadata_from_them()
         {
-            Assert.Equal(2, builtMetadata.Count(t => t == typeof(SomeViewModelMetadata)));
-            Assert.True(
+            Assert.AreEqual(2, builtMetadata.Count(t => t == typeof(SomeViewModelMetadata)));
+            Assert.IsTrue(
                 builtMetadata.LastIndexOf(typeof(SomeDomainModelMetadata)) <
                 builtMetadata.LastIndexOf(typeof(SomeViewModelMetadata)));
         }
 
-        [Fact]
+        [TestMethod]
         public void Open_generic_metadata_is_built_before_non_generic_metadata()
         {
-            Assert.True(
+            Assert.IsTrue(
                 builtMetadata.IndexOf(typeof(SomeDomainBaseTypeMetadata<>)) <
                 builtMetadata.IndexOf(typeof(SomeDomainModelMetadata)));
         }
 
-        [Fact]
+        [TestMethod]
         public void Dependent_metadata_is_built_again_if_dependency_is_built_again()
         {
-            Assert.Equal(2, builtMetadata.Count(t => t == typeof(SomeOtherViewModelMetadata)));
-            Assert.True(
+            Assert.AreEqual(2, builtMetadata.Count(t => t == typeof(SomeOtherViewModelMetadata)));
+            Assert.IsTrue(
                 builtMetadata.LastIndexOf(typeof(SomeViewModelMetadata)) <
                 builtMetadata.LastIndexOf(typeof(SomeOtherViewModelMetadata)));
         }
 
-        [Fact]
+        [TestMethod]
         public void Dependent_metadata_built_in_a_later_batch_is_built_correctly()
         {
-            Assert.Equal(1, builtMetadata.Count(t => t == typeof(SomeTypeInAnotherAssemblyMetadata)));
+            Assert.AreEqual(1, builtMetadata.Count(t => t == typeof(SomeTypeInAnotherAssemblyMetadata)));
         }
 
-        [Fact]
+        [TestMethod]
         public void It_does_not_duplicate_generic_class_rules()
         {
-            Assert.Equal(1, someViewModelRules.OfType<GenericClassRule<SomeViewModel>>().Count());
+            Assert.AreEqual(1, someViewModelRules.OfType<GenericClassRule<SomeViewModel>>().Count());
         }
 
-        [Fact]
+        [TestMethod]
         public void It_does_not_duplicate_PropertyMustBeLessThanOtherRules()
         {
-            Assert.Equal(1, someViewModelRules.OfType<PropertyMustBeLessThanOtherRule<SomeViewModel>>().Count());
+            Assert.AreEqual(1, someViewModelRules.OfType<PropertyMustBeLessThanOtherRule<SomeViewModel>>().Count());
         }
 
-        [Fact]
+        [TestMethod]
         public void It_does_not_duplicate_PropertyMustMatchRules()
         {
-            Assert.Equal(1, someViewModelRules.OfType<PropertyMustMatchRule<SomeViewModel>>().Count());
+            Assert.AreEqual(1, someViewModelRules.OfType<PropertyMustMatchRule<SomeViewModel>>().Count());
         }
 
-        [Fact]
+        [TestMethod]
         public void It_does_not_duplicate_RequiredRules()
         {
-            Assert.Equal(1, someViewModelMyPropertyRules.OfType<RequiredRule>().Count());
+            Assert.AreEqual(1, someViewModelMyPropertyRules.OfType<RequiredRule>().Count());
         }
 
-        [Fact]
+        [TestMethod]
         public void It_does_not_duplicate_PropertyMustMatchRegexRules()
         {
-            Assert.Equal(1, someViewModelMyStringPropertyRules.OfType<PropertyMustMatchRegexRule>().Count());
+            Assert.AreEqual(1, someViewModelMyStringPropertyRules.OfType<PropertyMustMatchRegexRule>().Count());
         }
 
-        [Fact]
+        [TestMethod]
         public void It_does_not_duplicate_RangeRules()
         {
-            Assert.Equal(1, someViewModelMyPropertyRules.OfType<RangeRule>().Count());
+            Assert.AreEqual(1, someViewModelMyPropertyRules.OfType<RangeRule>().Count());
         }
 
-        [Fact]
+        [TestMethod]
         public void It_does_not_duplicate_StringLengthRules()
         {
-            Assert.Equal(1, someViewModelMyStringPropertyRules.OfType<StringLengthRule>().Count());
+            Assert.AreEqual(1, someViewModelMyStringPropertyRules.OfType<StringLengthRule>().Count());
         }
 
-        [Fact]
+        [TestMethod]
         public void It_does_not_duplicate_generic_property_rules()
         {
-            Assert.Equal(1, someViewModelMyPropertyRules.OfType<GenericRule<int>>().Count());
+            Assert.AreEqual(1, someViewModelMyPropertyRules.OfType<GenericRule<int>>().Count());
         }
 
-        [Fact]
+        [TestMethod]
         public void It_does_not_duplicate_ClassRuleValidatingAPropertyWrapper()
         {
-            Assert.Equal(1, someViewModelMyPropertyRules.OfType<ClassRuleValidatingAPropertyWrapper>().Count());
+            Assert.AreEqual(1, someViewModelMyPropertyRules.OfType<ClassRuleValidatingAPropertyWrapper>().Count());
         }
 
         #region System under test
 
         #region dependent metadata is defined before its dependency
 
-        class SomeDomainModel : SomeDomainBaseType { }
-        class SomeViewModel
+        private class SomeDomainModel : SomeDomainBaseType
+        { }
+        private class SomeViewModel
         {
             public int MyProperty { get; set; }
             public int MyProperty2 { get; set; }
             public string MyStringProperty { get; set; }
         }
-        class SomeViewModelMetadata : ClassMetadata<SomeViewModel>
+        private class SomeViewModelMetadata : ClassMetadata<SomeViewModel>
         {
             public SomeViewModelMetadata()
             {
@@ -175,21 +173,25 @@ namespace FluentMetadata.Specs.Builder
                     .Length(1, 1);
             }
         }
-        class SomeDomainModelMetadata : SomeDomainBaseTypeMetadata<SomeDomainModel> { }
+        private class SomeDomainModelMetadata : SomeDomainBaseTypeMetadata<SomeDomainModel>
+        { }
 
         #endregion
 
         #region open generic metadata is defined after non generic metadata
 
-        class SomeDomainBaseType { }
-        class SomeDomainBaseTypeMetadata<T> : ClassMetadata<T> where T : SomeDomainBaseType { }
+        private class SomeDomainBaseType
+        { }
+        private class SomeDomainBaseTypeMetadata<T> : ClassMetadata<T> where T : SomeDomainBaseType
+        { }
 
         #endregion
 
         #region metadata depentent on incorrectly build metadata
 
-        class SomeOtherViewModel { }
-        class SomeOtherViewModelMetadata : ClassMetadata<SomeOtherViewModel>
+        private class SomeOtherViewModel
+        { }
+        private class SomeOtherViewModelMetadata : ClassMetadata<SomeOtherViewModel>
         {
             public SomeOtherViewModelMetadata()
             {
@@ -201,8 +203,9 @@ namespace FluentMetadata.Specs.Builder
 
         #region metadata built in a later batch
 
-        class SomeTypeInAnotherAssembly { }
-        class SomeTypeInAnotherAssemblyMetadata : ClassMetadata<SomeTypeInAnotherAssembly>
+        private class SomeTypeInAnotherAssembly
+        { }
+        private class SomeTypeInAnotherAssemblyMetadata : ClassMetadata<SomeTypeInAnotherAssembly>
         {
             public SomeTypeInAnotherAssemblyMetadata()
             {

@@ -1,11 +1,11 @@
 ﻿using FluentMetadata.Specs.SampleClasses;
-using Xunit;
 
 namespace FluentMetadata.Specs
 {
+    [TestClass]
     public class PropertyMedata_with_Person : MetadataTestBase
     {
-        readonly Metadata firstName, lastName;
+        private readonly Metadata firstName, lastName;
 
         public PropertyMedata_with_Person()
         {
@@ -13,40 +13,40 @@ namespace FluentMetadata.Specs
             lastName = QueryFluentMetadata.GetMetadataFor(typeof(Person), "LastName");
         }
 
-        [Fact]
+        [TestMethod]
         public void FirstName_ModelName_is_FirstName()
         {
-            Assert.Equal("FirstName", firstName.ModelName);
+            Assert.AreEqual("FirstName", firstName.ModelName);
         }
 
-        [Fact]
+        [TestMethod]
         public void FirstName_ModelType_is_string()
         {
-            Assert.Equal(typeof(string), firstName.ModelType);
+            Assert.AreEqual(typeof(string), firstName.ModelType);
         }
 
-        [Fact]
+        [TestMethod]
         public void FirstName_Required_is_true()
         {
-            Assert.True(firstName.Required.Value);
+            Assert.IsTrue(firstName.Required.Value);
         }
 
-        [Fact]
+        [TestMethod]
         public void LastName_ModelName_is_LastName()
         {
-            Assert.Equal("LastName", lastName.ModelName);
+            Assert.AreEqual("LastName", lastName.ModelName);
         }
 
-        [Fact]
+        [TestMethod]
         public void LastName_ModelType_is_string()
         {
-            Assert.Equal(typeof(string), lastName.ModelType);
+            Assert.AreEqual(typeof(string), lastName.ModelType);
         }
 
-        [Fact]
+        [TestMethod]
         public void LastName_Required_is_not_set()
         {
-            Assert.False(lastName.Required.HasValue);
+            Assert.IsFalse(lastName.Required.HasValue);
         }
     }
 }

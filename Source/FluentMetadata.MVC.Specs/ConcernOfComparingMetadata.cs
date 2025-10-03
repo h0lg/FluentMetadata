@@ -1,178 +1,162 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
-using Xunit;
+﻿using System.Web.Mvc;
 
 namespace FluentMetadata.MVC.Specs
 {
-    public abstract class ConcernOfComparingMetadata : InstanceContextSpecification<FluentMetadataProvider>,
-                                                       IUseFixture<FluentMetadataFixture>
+    public abstract class ConcernOfComparingMetadata
     {
         protected readonly ModelMetadataProvider OriginalProvider = new DataAnnotationsModelMetadataProvider();
+        protected readonly FluentMetadataProvider Sut = new();
 
         protected ModelMetadata Fluent;
         protected ModelMetadata Expected;
-        private Exception exception;
 
-        protected override void Because()
-        {
-            CreateMetadata();
-        }
-
-        public void SetFixture(FluentMetadataFixture data)
-        {
-            exception = data.Exception;
-        }
-
-        public abstract void CreateMetadata();
-
-        [Observation]
+        [TestMethod]
         public void MetadataSetupDoesNotThrowAnException()
         {
-            Assert.Null(exception);
+            Assert.IsNull(GlobalTestSetup.MetadataSetupException);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_ModelMetadata_Properties_Count()
         {
             Console.WriteLine(Expected.Properties.Count());
-            Assert.Equal(Expected.Properties.Count(), Fluent.Properties.Count());
+            Assert.AreEqual(Expected.Properties.Count(), Fluent.Properties.Count());
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_PropertyName()
         {
             Console.WriteLine(Expected.PropertyName);
-            Assert.Equal(Expected.PropertyName, Fluent.PropertyName);
+            Assert.AreEqual(Expected.PropertyName, Fluent.PropertyName);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_DisplayName()
         {
             Console.WriteLine(Expected.DisplayName);
-            Assert.Equal(Expected.DisplayName, Fluent.DisplayName);
+            Assert.AreEqual(Expected.DisplayName, Fluent.DisplayName);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_Model()
         {
             Console.WriteLine(Expected.Model);
-            Assert.Equal(Expected.Model, Fluent.Model);
+            Assert.AreEqual(Expected.Model, Fluent.Model);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_ContainerType()
         {
             Console.WriteLine(Expected.ContainerType);
-            Assert.Equal(Expected.ContainerType, Fluent.ContainerType);
+            Assert.AreEqual(Expected.ContainerType, Fluent.ContainerType);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_ConvertEmptyStringToNull()
         {
             Console.WriteLine(Expected.ConvertEmptyStringToNull);
-            Assert.Equal(Expected.ConvertEmptyStringToNull, Fluent.ConvertEmptyStringToNull);
+            Assert.AreEqual(Expected.ConvertEmptyStringToNull, Fluent.ConvertEmptyStringToNull);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_DataTypeName()
         {
             Console.WriteLine(Expected.DataTypeName);
-            Assert.Equal(Expected.DataTypeName, Fluent.DataTypeName);
+            Assert.AreEqual(Expected.DataTypeName, Fluent.DataTypeName);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_DispalyFormatString()
         {
             Console.WriteLine(Expected.DisplayFormatString);
-            Assert.Equal(Expected.DisplayFormatString, Fluent.DisplayFormatString);
+            Assert.AreEqual(Expected.DisplayFormatString, Fluent.DisplayFormatString);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_Description()
         {
             Console.WriteLine(Expected.Description);
-            Assert.Equal(Expected.Description, Fluent.Description);
+            Assert.AreEqual(Expected.Description, Fluent.Description);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_EditFormatString()
         {
             Console.WriteLine(Expected.EditFormatString);
-            Assert.Equal(Expected.EditFormatString, Fluent.EditFormatString);
+            Assert.AreEqual(Expected.EditFormatString, Fluent.EditFormatString);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_HideSurroundingHtml()
         {
             Console.WriteLine(Expected.HideSurroundingHtml);
-            Assert.Equal(Expected.HideSurroundingHtml, Fluent.HideSurroundingHtml);
+            Assert.AreEqual(Expected.HideSurroundingHtml, Fluent.HideSurroundingHtml);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_IsReadOnly()
         {
             Console.WriteLine(Expected.IsReadOnly);
-            Assert.Equal(Expected.IsReadOnly, Fluent.IsReadOnly);
+            Assert.AreEqual(Expected.IsReadOnly, Fluent.IsReadOnly);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_IsRequired()
         {
             Console.WriteLine(Expected.IsRequired);
-            Assert.Equal(Expected.IsRequired, Fluent.IsRequired);
+            Assert.AreEqual(Expected.IsRequired, Fluent.IsRequired);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_ModelType()
         {
             Console.WriteLine(Expected.ModelType);
-            Assert.Equal(Expected.ModelType, Fluent.ModelType);
+            Assert.AreEqual(Expected.ModelType, Fluent.ModelType);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_NullDisplayText()
         {
             Console.WriteLine(Expected.NullDisplayText);
-            Assert.Equal(Expected.NullDisplayText, Fluent.NullDisplayText);
+            Assert.AreEqual(Expected.NullDisplayText, Fluent.NullDisplayText);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_RequestValidationEnabled()
         {
             Console.WriteLine(Expected.RequestValidationEnabled);
-            Assert.Equal(Expected.RequestValidationEnabled, Fluent.RequestValidationEnabled);
+            Assert.AreEqual(Expected.RequestValidationEnabled, Fluent.RequestValidationEnabled);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_ShowForDisplay()
         {
             Console.WriteLine(Expected.ShowForDisplay);
-            Assert.Equal(Expected.ShowForDisplay, Fluent.ShowForDisplay);
+            Assert.AreEqual(Expected.ShowForDisplay, Fluent.ShowForDisplay);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_ShowForEdit()
         {
             Console.WriteLine(Expected.ShowForEdit);
-            Assert.Equal(Expected.ShowForEdit, Fluent.ShowForEdit);
+            Assert.AreEqual(Expected.ShowForEdit, Fluent.ShowForEdit);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_TemplateHint()
         {
             Console.WriteLine(Expected.TemplateHint);
-            Assert.Equal(Expected.TemplateHint, Fluent.TemplateHint);
+            Assert.AreEqual(Expected.TemplateHint, Fluent.TemplateHint);
         }
 
-        [Observation]
+        [TestMethod]
         public void Equals_Watermark()
         {
             Console.WriteLine(Expected.Watermark);
-            Assert.Equal(Expected.Watermark, Fluent.Watermark);
+            Assert.AreEqual(Expected.Watermark, Fluent.Watermark);
         }
 
-        [Observation]
+        [TestMethod]
         public void DataAnnotationsModelValidatorProviderAppliesRequiredValidators()
         {
             var controllerContext = new ControllerContext();
@@ -184,21 +168,20 @@ namespace FluentMetadata.MVC.Specs
 
             if (Expected.IsRequired)
             {
-                Assert.Equal(1, expectedValidatorCount);
+                Assert.AreEqual(1, expectedValidatorCount);
             }
             else
             {
-                Assert.InRange(expectedValidatorCount, 0, 1);
+                RangeAssert.InRange(expectedValidatorCount, 0, 1);
             }
 
-            Assert.Equal(
-                expectedValidatorCount,
+            Assert.AreEqual(expectedValidatorCount,
                 dataAnnotationsModelValidatorProvider
                     .GetValidators(Fluent, controllerContext)
                     .Count(v => v.IsRequired));
         }
 
-        [Observation]
+        [TestMethod]
         public void StringLengthValidatorsMatch()
         {
             var controllerContext = new ControllerContext();
@@ -208,10 +191,9 @@ namespace FluentMetadata.MVC.Specs
                 .OfType<StringLengthAttributeAdapter>()
                 .Count();
 
-            Assert.InRange(expectedValidatorCount, 0, 1);
+            RangeAssert.InRange(expectedValidatorCount, 0, 1);
 
-            Assert.Equal(
-                expectedValidatorCount,
+            Assert.AreEqual(expectedValidatorCount,
                 new FluentValidationProvider()
                     .GetValidators(Fluent, controllerContext)
                     .OfType<RuleModelValidator>()
@@ -220,17 +202,19 @@ namespace FluentMetadata.MVC.Specs
                     .Count());
         }
 
-        [Observation]
+        [TestMethod]
         public void RangeValidatorsMatch()
         {
             var controllerContext = new ControllerContext();
+
             var expectedValidatorCount = new DataAnnotationsModelValidatorProvider()
                 .GetValidators(Expected, controllerContext)
                 .OfType<RangeAttributeAdapter>()
                 .Count();
-            Assert.InRange(expectedValidatorCount, 0, 1);
-            Assert.Equal(
-                expectedValidatorCount,
+
+            RangeAssert.InRange(expectedValidatorCount, 0, 1);
+
+            Assert.AreEqual(expectedValidatorCount,
                 new FluentValidationProvider()
                     .GetValidators(Fluent, controllerContext)
                     .OfType<RuleModelValidator>()
@@ -239,17 +223,19 @@ namespace FluentMetadata.MVC.Specs
                     .Count());
         }
 
-        [Observation]
+        [TestMethod]
         public void RegularExpressionValidatorsMatch()
         {
             var controllerContext = new ControllerContext();
+
             var expectedValidatorCount = new DataAnnotationsModelValidatorProvider()
                 .GetValidators(Expected, controllerContext)
                 .OfType<RegularExpressionAttributeAdapter>()
                 .Count();
-            Assert.InRange(expectedValidatorCount, 0, 1);
-            Assert.Equal(
-                expectedValidatorCount,
+
+            RangeAssert.InRange(expectedValidatorCount, 0, 1);
+
+            Assert.AreEqual(expectedValidatorCount,
                 new FluentValidationProvider()
                     .GetValidators(Fluent, controllerContext)
                     .OfType<RuleModelValidator>()
@@ -258,23 +244,36 @@ namespace FluentMetadata.MVC.Specs
                     .Count());
         }
 
-        [Observation]
+        [TestMethod]
         public void EqualToClientValidationRulesMatch()
         {
             var controllerContext = new ControllerContext();
+
             var expectedValidatorCount = new DataAnnotationsModelValidatorProvider()
                 .GetValidators(Expected, controllerContext)
                 .SelectMany(rmv => rmv.GetClientValidationRules())
                 .OfType<ModelClientValidationEqualToRule>()
                 .Count();
-            Assert.InRange(expectedValidatorCount, 0, 1);
-            Assert.Equal(
-                expectedValidatorCount,
+
+            RangeAssert.InRange(expectedValidatorCount, 0, 1);
+
+            Assert.AreEqual(expectedValidatorCount,
                 new FluentValidationProvider()
                     .GetValidators(Fluent, controllerContext)
                     .SelectMany(rmv => rmv.GetClientValidationRules())
                     .OfType<ModelClientValidationEqualToRule>()
                     .Count());
+        }
+    }
+
+    public static class RangeAssert
+    {
+        public static void InRange<T>(T actual, T low, T high) where T : IComparable<T>
+        {
+            if (actual.CompareTo(low) < 0 || actual.CompareTo(high) > 0)
+            {
+                Assert.Fail($"Value {actual} was not in range {low} to {high}.");
+            }
         }
     }
 }

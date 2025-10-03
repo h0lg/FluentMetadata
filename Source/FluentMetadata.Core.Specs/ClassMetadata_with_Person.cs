@@ -1,51 +1,50 @@
-using System.Linq;
 using FluentMetadata.Rules;
 using FluentMetadata.Specs.SampleClasses;
-using Xunit;
 
 namespace FluentMetadata.Specs
 {
+    [TestClass]
     public class ClassMetadata_with_Person : MetadataTestBase
     {
-        readonly Metadata classMetadata;
+        private readonly Metadata classMetadata;
 
         public ClassMetadata_with_Person()
         {
             classMetadata = QueryFluentMetadata.GetMetadataFor(typeof(Person));
         }
 
-        [Fact]
+        [TestMethod]
         public void Metadata_ModelType_is_Person()
         {
-            Assert.Equal(typeof(Person), classMetadata.ModelType);
+            Assert.AreEqual(typeof(Person), classMetadata.ModelType);
         }
 
-        [Fact]
+        [TestMethod]
         public void Metadata_ModelName_is_Null()
         {
-            Assert.Null(classMetadata.ModelName);
+            Assert.IsNull(classMetadata.ModelName);
         }
 
-        [Fact]
+        [TestMethod]
         public void Metadata_Display_is_Benutzer()
         {
-            Assert.Equal("Benutzer", classMetadata.GetDisplayName());
+            Assert.AreEqual("Benutzer", classMetadata.GetDisplayName());
         }
 
-        [Fact]
+        [TestMethod]
         public void Instance_with_FirstName_different_from_LastName_is_invalid()
         {
             var rule = classMetadata.Rules.OfType<PropertyMustMatchRule<Person>>().Last();
             var person = new Person { FirstName = "foo", LastName = "bar" };
-            Assert.False(rule.IsValid(person));
+            Assert.IsFalse(rule.IsValid(person));
         }
 
-        [Fact]
+        [TestMethod]
         public void Instance_with_FirstName_equal_to_LastName_is_valid()
         {
             var rule = classMetadata.Rules.OfType<PropertyMustMatchRule<Person>>().Last();
             var person = new Person { FirstName = "foo", LastName = "foo" };
-            Assert.True(rule.IsValid(person));
+            Assert.IsTrue(rule.IsValid(person));
         }
     }
 }

@@ -1,14 +1,12 @@
-﻿using System;
-using System.Linq;
-using FluentMetadata.Rules;
+﻿using FluentMetadata.Rules;
 using FluentMetadata.Specs.SampleClasses;
-using Xunit;
 
 namespace FluentMetadata.Specs
 {
+    [TestClass]
     public class PropertyMedata_with_WebUser : MetadataTestBase
     {
-        readonly Metadata lastLogin, username, id, passWordHash, role, bounceCount;
+        private readonly Metadata lastLogin, username, id, passWordHash, role, bounceCount;
 
         public PropertyMedata_with_WebUser()
         {
@@ -20,97 +18,97 @@ namespace FluentMetadata.Specs
             bounceCount = QueryFluentMetadata.GetMetadataFor(typeof(WebUser), "BounceCount");
         }
 
-        [Fact]
+        [TestMethod]
         public void Username_ModelName_is_Username()
         {
-            Assert.Equal("Username", username.ModelName);
+            Assert.AreEqual("Username", username.ModelName);
         }
 
-        [Fact]
+        [TestMethod]
         public void Username_ModelType_is_string()
         {
-            Assert.Equal(typeof(string), username.ModelType);
+            Assert.AreEqual(typeof(string), username.ModelType);
         }
 
-        [Fact]
+        [TestMethod]
         public void Username_DisplayName_is_Benutzername()
         {
-            Assert.Equal("Benutzername", username.GetDisplayName());
+            Assert.AreEqual("Benutzername", username.GetDisplayName());
         }
 
-        [Fact]
+        [TestMethod]
         public void Username_Required_is_true()
         {
-            Assert.True(username.Required.Value);
+            Assert.IsTrue(username.Required.Value);
         }
 
-        [Fact]
+        [TestMethod]
         public void Username_MinLength_is_3()
         {
-            Assert.Equal(3, username.GetMinimumLength());
+            Assert.AreEqual(3, username.GetMinimumLength());
         }
 
-        [Fact]
+        [TestMethod]
         public void Username_MaxLength_is_256()
         {
-            Assert.Equal(256, username.GetMaximumLength());
+            Assert.AreEqual(256, username.GetMaximumLength());
         }
 
-        [Fact]
+        [TestMethod]
         public void PassWordHash_MinLength_is_32()
         {
-            Assert.Equal(32, passWordHash.GetMinimumLength());
+            Assert.AreEqual(32, passWordHash.GetMinimumLength());
         }
 
-        [Fact]
+        [TestMethod]
         public void PassWordHash_MaxLength_is_null()
         {
-            Assert.Null(passWordHash.GetMaximumLength());
+            Assert.IsNull(passWordHash.GetMaximumLength());
         }
 
-        [Fact]
+        [TestMethod]
         public void Role_MinLength_is_null()
         {
-            Assert.Null(role.GetMinimumLength());
+            Assert.IsNull(role.GetMinimumLength());
         }
 
-        [Fact]
+        [TestMethod]
         public void Role_MaxLength_is_256()
         {
-            Assert.Equal(256, role.GetMaximumLength());
+            Assert.AreEqual(256, role.GetMaximumLength());
         }
 
-        [Fact]
+        [TestMethod]
         public void Id_ModelName_is_Id()
         {
-            Assert.Equal("Id", id.ModelName);
+            Assert.AreEqual("Id", id.ModelName);
         }
 
-        [Fact]
+        [TestMethod]
         public void Id_ModelType_is_int()
         {
-            Assert.Equal(typeof(int), id.ModelType);
+            Assert.AreEqual(typeof(int), id.ModelType);
         }
 
-        [Fact]
+        [TestMethod]
         public void Id_Required_is_false()
         {
-            Assert.False(id.Required.HasValue);
+            Assert.IsFalse(id.Required.HasValue);
         }
 
-        [Fact]
+        [TestMethod]
         public void Last_Login_Minimum_is_2010_1_23()
         {
-            Assert.Equal(new DateTime(2010, 1, 23), lastLogin.GetRangeMinimum());
+            Assert.AreEqual(new DateTime(2010, 1, 23), lastLogin.GetRangeMinimum());
         }
 
-        [Fact]
+        [TestMethod]
         public void Last_Login_Maximum_is_DoomsDay()
         {
-            Assert.Equal(DateTime.MaxValue, lastLogin.GetRangeMaximum());
+            Assert.AreEqual(DateTime.MaxValue, lastLogin.GetRangeMaximum());
         }
 
-        [Fact]
+        [TestMethod]
         public void Generic_bounceCount_rule_is_valid_when_email_has_bounced_twice()
         {
             var bounceCountRule = bounceCount.Rules
@@ -121,10 +119,10 @@ namespace FluentMetadata.Specs
             webUser.MailHasBounced();
             webUser.MailHasBounced();
 
-            Assert.True(bounceCountRule.IsValid(webUser.BounceCount));
+            Assert.IsTrue(bounceCountRule.IsValid(webUser.BounceCount));
         }
 
-        [Fact]
+        [TestMethod]
         public void Generic_bounceCount_rule_is_invalid_when_email_has_bounced_thrice()
         {
             var bounceCountRule = bounceCount.Rules
@@ -137,7 +135,7 @@ namespace FluentMetadata.Specs
             webUser.MailHasBounced();
 
             Console.WriteLine(bounceCountRule.FormatErrorMessage(bounceCount.GetDisplayName()));
-            Assert.False(bounceCountRule.IsValid(webUser.BounceCount));
+            Assert.IsFalse(bounceCountRule.IsValid(webUser.BounceCount));
         }
     }
 }

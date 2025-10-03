@@ -1,18 +1,25 @@
-using System;
 using System.Web.Mvc;
 
 namespace FluentMetadata.MVC.Specs
 {
-    public class FluentMetadataFixture
+    [TestClass]
+    public static class GlobalTestSetup
     {
-        internal Exception Exception { get; private set; }
+        public static Exception MetadataSetupException { get; private set; }
 
-        public FluentMetadataFixture()
+        [AssemblyInitialize]
+        public static void AssemblyInit(TestContext context)
         {
             FluentMetadataBuilder.Reset();
 
-            try { FluentMetadataBuilder.ForAssemblyOfType<FluentMetadataFixture>(); }
-            catch (Exception ex) { Exception = ex; }
+            try
+            {
+                FluentMetadataBuilder.ForAssemblyOfType<ComplexModel>();
+            }
+            catch (Exception ex)
+            {
+                MetadataSetupException = ex;
+            }
 
             ModelMetadataProviders.Current = new FluentMetadataProvider();
         }

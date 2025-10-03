@@ -2,9 +2,11 @@ using FluentMetadata.EntityFramework.Specs.DomainObjects;
 
 namespace FluentMetadata.EntityFramework.Specs
 {
-    public class MetadataSetup
+    [TestClass]
+    public static class GlobalTestSetup
     {
-        public MetadataSetup()
+        [AssemblyInitialize]
+        public static void AssemblyInit(TestContext context)
         {
             FluentMetadataBuilder.Reset();
             FluentMetadataBuilder.ForAssemblyOfType<WebUser>();

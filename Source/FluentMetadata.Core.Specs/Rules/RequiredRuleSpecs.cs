@@ -1,55 +1,51 @@
-using System;
 using FluentMetadata.Rules;
-using Xunit;
 
 namespace FluentMetadata.Specs.Rules
 {
-    [Concern(typeof (RequiredRule))]
-    public class Required_rule_specs : InstanceContextSpecification<RequiredRule>
+    [TestClass]
+    public class Required_rule_specs
     {
-        protected override void Because()
+        private readonly RequiredRule Sut;
+
+        public Required_rule_specs()
         {
+            Sut = new RequiredRule();
         }
 
-        protected override RequiredRule CreateSut()
-        {
-            return new RequiredRule();
-        }
-
-        [Observation]
+        [TestMethod]
         public void Null_is_not_valid()
         {
-            Sut.IsValid(null).ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid(null));
         }
 
-        [Observation]
+        [TestMethod]
         public void Empty_string_is_not_valid()
         {
-            Sut.IsValid("").ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid(""));
         }
 
-        [Observation]
+        [TestMethod]
         public void AnObject_is_Valid()
         {
-            Sut.IsValid(DateTime.Now).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(DateTime.Now));
         }
 
-        [Observation]
+        [TestMethod]
         public void AString_is_Valid()
         {
-            Sut.IsValid("hallo").ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid("hallo"));
         }
 
-        [Observation]
+        [TestMethod]
         public void Number_99_is_Valid()
         {
-            Sut.IsValid(99).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(99));
         }
 
-        [Observation]
+        [TestMethod]
         public void Number_99_1_is_Valid()
         {
-            Sut.IsValid(99.1).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(99.1));
         }
     }
 }

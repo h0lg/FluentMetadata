@@ -1,5 +1,4 @@
 using FluentMetadata.Rules;
-using Xunit;
 
 namespace FluentMetadata.Specs.Rules
 {
@@ -10,29 +9,28 @@ namespace FluentMetadata.Specs.Rules
         public string ConfirmPassword { get; set; }
     }
 
-    public class When_two_properties_should_be_equal : InstanceContextSpecification<PropertyMustMatchRule<ChangePasswordModel>>
+    [TestClass]
+    public class When_two_properties_should_be_equal
     {
-        protected override PropertyMustMatchRule<ChangePasswordModel> CreateSut()
+        private readonly PropertyMustMatchRule<ChangePasswordModel> Sut;
+
+        public When_two_properties_should_be_equal()
         {
-            return new PropertyMustMatchRule<ChangePasswordModel>(x => x.NewPassword, x => x.ConfirmPassword);
+            Sut = new PropertyMustMatchRule<ChangePasswordModel>(x => x.NewPassword, x => x.ConfirmPassword);
         }
 
-        protected override void Because()
-        {
-        }
-
-        [Observation]
+        [TestMethod]
         public void Should_be_valid_if_properties_match()
         {
             var model = new ChangePasswordModel { NewPassword = "asdf", ConfirmPassword = "asdf" };
-            Sut.IsValid(model).ShouldBeTrue();
+            Assert.IsTrue(Sut.IsValid(model));
         }
 
-        [Observation]
+        [TestMethod]
         public void Should_be_invalid_if_properties_do_not_match()
         {
             var model = new ChangePasswordModel { NewPassword = "qwer", ConfirmPassword = "asdf" };
-            Sut.IsValid(model).ShouldBeFalse();
+            Assert.IsFalse(Sut.IsValid(model));
         }
     }
 }

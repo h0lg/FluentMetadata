@@ -1,8 +1,9 @@
 using AutoMapper;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FluentMetadata.AutoMapper.Specs
 {
+    [TestClass]
     public class When_copying_metadata_from_an_AutoMapped_Type
     {
         private readonly Metadata destinationMetadata;
@@ -30,40 +31,40 @@ namespace FluentMetadata.AutoMapper.Specs
             destinationMetadata = QueryFluentMetadata.GetMetadataFor(typeof(Destination));
         }
 
-        [Fact]
+        [TestMethod]
         public void a_destination_property_should_have_metadata_from_the_source_property_it_is_mapped_to()
         {
-            Assert.Equal("pockänsdfsdf", destinationMetadata.Properties[nameof(Destination.MyProperty)].GetDisplayName());
+            Assert.AreEqual("pockänsdfsdf", destinationMetadata.Properties[nameof(Destination.MyProperty)].GetDisplayName());
         }
 
-        [Fact]
+        [TestMethod]
         public void a_non_public_destination_property_should_have_metadata_from_the_source_property_it_is_mapped_to()
         {
-            Assert.Equal("non-public", destinationMetadata.Properties[nameof(Destination.NonPublic)].GetDescription());
+            Assert.AreEqual("non-public", destinationMetadata.Properties[nameof(Destination.NonPublic)].GetDescription());
         }
 
-        [Fact]
+        [TestMethod]
         public void the_destination_type_should_have_metadata_from_the_source_type_it_is_mapped_to()
         {
-            Assert.Equal("rzjsfghgafsdfh", destinationMetadata.GetDisplayName());
+            Assert.AreEqual("rzjsfghgafsdfh", destinationMetadata.GetDisplayName());
         }
 
-        [Fact]
+        [TestMethod]
         public void a_projected_destination_property_should_have_metadata_from_the_source_property_it_is_mapped_to()
         {
-            Assert.Equal("adföoiulkanhsda", destinationMetadata.Properties[nameof(Destination.Renamed)].GetDescription());
+            Assert.AreEqual("adföoiulkanhsda", destinationMetadata.Properties[nameof(Destination.Renamed)].GetDescription());
         }
 
-        [Fact]
+        [TestMethod]
         public void a_flattened_destination_property_should_have_metadata_from_the_source_property_it_is_mapped_to()
         {
-            Assert.Equal(true, destinationMetadata.Properties[nameof(Destination.NestedFurtherNestedId)].Required);
+            Assert.AreEqual(true, destinationMetadata.Properties[nameof(Destination.NestedFurtherNestedId)].Required);
         }
 
-        [Fact]
+        [TestMethod]
         public void a_destination_property_resolved_from_a_source_property_should_have_metadata_from_the_source_property()
         {
-            Assert.Equal("üoicvnqwnb", destinationMetadata.Properties[nameof(Destination.IntProperty)].TemplateHint);
+            Assert.AreEqual("üoicvnqwnb", destinationMetadata.Properties[nameof(Destination.IntProperty)].TemplateHint);
         }
     }
 }

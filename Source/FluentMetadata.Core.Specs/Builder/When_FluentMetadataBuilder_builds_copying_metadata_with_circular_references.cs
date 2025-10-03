@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Xunit;
-
 namespace FluentMetadata.Specs.Builder
 {
+    [TestClass]
     public class When_FluentMetadataBuilder_builds_copying_metadata_with_circular_references
     {
-        Exception exception;
+        private readonly Exception exception;
 
         public When_FluentMetadataBuilder_builds_copying_metadata_with_circular_references()
         {
@@ -32,40 +28,43 @@ namespace FluentMetadata.Specs.Builder
                     t.Is<IClassMetadata>());
         }
 
-        [Fact]
+        [TestMethod]
         public void It_throws_a_CircularRefenceException()
         {
-            Assert.IsType<MetadataDefinitionSorter.CircularRefenceException>(exception);
+            Assert.IsInstanceOfType<MetadataDefinitionSorter.CircularRefenceException>(exception);
         }
 
-        [Fact]
+        [TestMethod]
         public void The_CircularRefenceException_contains_the_full_name_of_each_type_building_the_circular_reference()
         {
             GetUnbuildableMetadataDefinitions()
                 .ToList()
-                .ForEach(t => Assert.Contains(t.FullName, exception.Message));
+                .ForEach(t => Assert.IsTrue(exception.Message.Contains(t.FullName)));
         }
 
         #region metadata with circular references
 
-        class SomeType { }
-        class SomeOtherType { }
-        class SomeThirdType { }
-        class SomeTypeMetadata : ClassMetadata<SomeType>
+        private class SomeType
+        { }
+        private class SomeOtherType
+        { }
+        private class SomeThirdType
+        { }
+        private class SomeTypeMetadata : ClassMetadata<SomeType>
         {
             public SomeTypeMetadata()
             {
                 CopyMetadataFrom<SomeOtherType>();
             }
         }
-        class SomeOtherTypeMetadata : ClassMetadata<SomeOtherType>
+        private class SomeOtherTypeMetadata : ClassMetadata<SomeOtherType>
         {
             public SomeOtherTypeMetadata()
             {
                 CopyMetadataFrom<SomeThirdType>();
             }
         }
-        class SomeThirdTypeMetadata : ClassMetadata<SomeThirdType>
+        private class SomeThirdTypeMetadata : ClassMetadata<SomeThirdType>
         {
             public SomeThirdTypeMetadata()
             {

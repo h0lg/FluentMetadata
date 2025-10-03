@@ -1,17 +1,16 @@
 using System.Data.Entity;
-using System.IO;
-using Xunit;
 
 namespace FluentMetadata.EntityFramework.Specs
 {
-    public class DbContextTest : IUseFixture<MetadataSetup>
+    [TestClass]
+    public class DbContextTest
     {
         public DbContextTest()
         {
             Database.SetInitializer(new DropCreateDatabaseAlways<RegularlyDbContext>());
         }
 
-        [Fact]
+        [TestMethod]
         public void CanCreateDbContext()
         {
             if (File.Exists("TestDatabase.sdf"))
@@ -19,10 +18,6 @@ namespace FluentMetadata.EntityFramework.Specs
                 File.Delete("TestDatabase.sdf");
             }
             var context = new RegularlyDbContext();
-        }
-
-        public void SetFixture(MetadataSetup data)
-        {
         }
     }
 

@@ -2,8 +2,8 @@
 
 namespace FluentMetadata.MVC.Specs
 {
-    public class DummyController  : Controller
+    public class DummyController : Controller
     {
-        
+
     }
 }

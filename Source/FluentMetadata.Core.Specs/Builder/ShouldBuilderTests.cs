@@ -1,8 +1,8 @@
 ﻿using FluentMetadata.Builder;
-using Xunit;
 
 namespace FluentMetadata.Specs.Builder
 {
+    [TestClass]
     public class ShouldBuilderTests
     {
         private readonly IShouldProperty<DummyClass, string> shouldBuilder;
@@ -14,98 +14,98 @@ namespace FluentMetadata.Specs.Builder
             shouldBuilder = new ShouldBuilder<DummyClass, string>(new PropertyMetadataBuilder<DummyClass, string>(metadata));
         }
 
-        [Fact]
+        [TestMethod]
         public void ShouldBuilder_Ctor_ShouldShowDisplay()
         {
-            Assert.True(metadata.ShowDisplay);
+            Assert.IsTrue(metadata.ShowDisplay);
         }
 
-        [Fact]
+        [TestMethod]
         public void ShouldBuilder_ShowInDisplay_ShouldShowDisplay()
         {
             shouldBuilder.ShowInDisplay();
-            Assert.True(metadata.ShowDisplay);
+            Assert.IsTrue(metadata.ShowDisplay);
         }
 
-        [Fact]
+        [TestMethod]
         public void ShouldBuilder_Not_ShowInDisplay_ShouldNotShowDisplay()
         {
             shouldBuilder.Not.ShowInDisplay();
-            Assert.False(metadata.ShowDisplay);
+            Assert.IsFalse(metadata.ShowDisplay);
         }
 
-        [Fact]
+        [TestMethod]
         public void ShouldBuilder_Ctor_ShouldShowEditor()
         {
-            Assert.True(metadata.ShowEditor);
+            Assert.IsTrue(metadata.ShowEditor);
         }
 
-        [Fact]
+        [TestMethod]
         public void ShouldBuilder_ShowInEditor_ShouldShowEditor()
         {
             shouldBuilder.ShowInEditor();
-            Assert.True(metadata.ShowEditor);
+            Assert.IsTrue(metadata.ShowEditor);
         }
 
-        [Fact]
+        [TestMethod]
         public void ShouldBuilder_Not_ShowInEditor_ShouldNotShowEditor()
         {
             shouldBuilder.Not.ShowInEditor();
-            Assert.False(metadata.ShowEditor);
+            Assert.IsFalse(metadata.ShowEditor);
         }
 
-        [Fact]
+        [TestMethod]
         public void ShouldBuilder_Ctor_ShouldNotHideSurroundingHtml()
         {
-            Assert.False(metadata.HideSurroundingHtml.HasValue);
+            Assert.IsFalse(metadata.HideSurroundingHtml.HasValue);
         }
 
-        [Fact]
+        [TestMethod]
         public void ShouldBuilder_HideSurroundingHtml_ShouldHideSurroundingHtml()
         {
             shouldBuilder.HideSurroundingHtml();
-            Assert.True(metadata.HideSurroundingHtml.Value);
+            Assert.IsTrue(metadata.HideSurroundingHtml.Value);
         }
 
-        [Fact]
+        [TestMethod]
         public void ShouldBuilder_Not_HideSurroundingHtml_ShouldNotHideSurroundingHtml()
         {
             shouldBuilder.Not.HideSurroundingHtml();
-            Assert.False(metadata.HideSurroundingHtml.Value);
+            Assert.IsFalse(metadata.HideSurroundingHtml.Value);
         }
 
-        [Fact]
+        [TestMethod]
         public void ShouldBuilder_Ctor_ShouldNotHiddenInput()
         {
-            Assert.False(metadata.Hidden.HasValue);
+            Assert.IsFalse(metadata.Hidden.HasValue);
         }
 
-        [Fact]
+        [TestMethod]
         public void ShouldBuilder_HiddenInput__ShouldHiddenInput()
         {
             shouldBuilder.HiddenInput();
-            Assert.True(metadata.Hidden.Value);
+            Assert.IsTrue(metadata.Hidden.Value);
         }
 
-        [Fact]
+        [TestMethod]
         public void ShouldBuilder_HiddenInput_ShouldHideSurroundingHtml()
         {
             shouldBuilder.HiddenInput();
-            Assert.True(metadata.HideSurroundingHtml.Value);
+            Assert.IsTrue(metadata.HideSurroundingHtml.Value);
         }
 
-        [Fact]
+        [TestMethod]
         public void ShouldBuilder_Not_HiddenInput__ShouldNotHiddenInput()
         {
             shouldBuilder.Not.HiddenInput();
-            Assert.False(metadata.Hidden.Value);
+            Assert.IsFalse(metadata.Hidden.Value);
         }
 
-        [Fact]
+        [TestMethod]
         public void ShouldBuilder_Not_iddenInput_ShouldNotHideSurroundingHtml()
         {
             shouldBuilder.Not.HiddenInput();
-            Assert.False(metadata.HideSurroundingHtml.Value);
+            Assert.IsFalse(metadata.HideSurroundingHtml.Value);
         }
     }
 }

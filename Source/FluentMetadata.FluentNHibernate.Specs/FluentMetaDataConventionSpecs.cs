@@ -1,17 +1,15 @@
-using System;
-using System.Linq;
 using System.Linq.Expressions;
 using FluentMetadata.FluentNHibernate.Conventions;
 using FluentNHibernate.Conventions.Instances;
 using FluentNHibernate.MappingModel;
 using FluentNHibernate.Utils.Reflection;
-using Xunit;
 
 namespace FluentMetadata.FluentNHibernate.Specs
 {
+    [TestClass]
     public class FluentMetaDataConventionSpecs
     {
-        readonly FluentMetadataConvention sut;
+        private readonly FluentMetadataConvention sut;
 
         public FluentMetaDataConventionSpecs()
         {
@@ -20,37 +18,37 @@ namespace FluentMetadata.FluentNHibernate.Specs
             sut = new FluentMetadataConvention();
         }
 
-        [Fact]
+        [TestMethod]
         public void AppliesNotNullToRequiredProperties()
         {
             var idMapping = GetPropertyMapping<TestClass>(t => t.Id);
 
             sut.Apply(new PropertyInstance(idMapping));
 
-            Assert.True(idMapping.Columns.Single().NotNull);
+            Assert.IsTrue(idMapping.Columns.Single().NotNull);
         }
 
-        [Fact]
+        [TestMethod]
         public void AppliesNullToNonRequiredProperties()
         {
             var optionalMapping = GetPropertyMapping<TestClass>(t => t.NullableNumber);
 
             sut.Apply(new PropertyInstance(optionalMapping));
 
-            Assert.False(optionalMapping.Columns.Single().NotNull);
+            Assert.IsFalse(optionalMapping.Columns.Single().NotNull);
         }
 
-        [Fact]
+        [TestMethod]
         public void AppliesMaximumStringLengthToProperties()
         {
             var optionalMapping = GetPropertyMapping<TestClass>(t => t.SomeString);
 
             sut.Apply(new PropertyInstance(optionalMapping));
 
-            Assert.Equal(42, optionalMapping.Columns.Single().Length);
+            Assert.AreEqual(42, optionalMapping.Columns.Single().Length);
         }
 
-        [Fact]
+        [TestMethod]
         public void DoesNotThrowAnExceptionForNotFoundProperties()
         {
             var privateMapping = GetPropertyMapping<TestClass>(TestClass.Expressions.SomePrivateField);
@@ -65,30 +63,30 @@ namespace FluentMetadata.FluentNHibernate.Specs
                 exception = ex;
             }
 
-            Assert.Null(exception);
+            Assert.IsNull(exception);
         }
 
-        [Fact]
+        [TestMethod]
         public void AppliesNotNullToRequiredReferences()
         {
             var requiredMapping = GetPropertyMapping<TestClass>(t => t.RequiredReference);
 
             sut.Apply(new PropertyInstance(requiredMapping));
 
-            Assert.True(requiredMapping.Columns.Single().NotNull);
+            Assert.IsTrue(requiredMapping.Columns.Single().NotNull);
         }
 
-        [Fact]
+        [TestMethod]
         public void AppliesNullToNonRequiredReferences()
         {
             var optionalMapping = GetPropertyMapping<TestClass>(t => t.NullableReference);
 
             sut.Apply(new PropertyInstance(optionalMapping));
 
-            Assert.False(optionalMapping.Columns.Single().NotNull);
+            Assert.IsFalse(optionalMapping.Columns.Single().NotNull);
         }
 
-        static PropertyMapping GetPropertyMapping<T>(Expression<Func<T, object>> propertyExpression)
+        private static PropertyMapping GetPropertyMapping<T>(Expression<Func<T, object>> propertyExpression)
         {
             var propertyMapping = new PropertyMapping
             {
@@ -102,7 +100,7 @@ namespace FluentMetadata.FluentNHibernate.Specs
 
     public class TestClass
     {
-        int somePrivateField = 42;
+        private readonly int somePrivateField = 42;
 
         public int Id { get; protected set; }
         public int? NullableNumber { get; set; }

@@ -1,14 +1,14 @@
-﻿using System.Linq;
-using FluentMetadata.Builder;
+﻿using FluentMetadata.Builder;
 using FluentMetadata.Rules;
-using Xunit;
 
 namespace FluentMetadata.Specs.Builder
 {
+
+    [TestClass]
     public class IsBuilderTests
     {
-        readonly IIsProperty<DummyClass, string> isBuilder;
-        readonly Metadata metadata;
+        private readonly IIsProperty<DummyClass, string> isBuilder;
+        private readonly Metadata metadata;
 
         public IsBuilderTests()
         {
@@ -16,55 +16,55 @@ namespace FluentMetadata.Specs.Builder
             isBuilder = new IsBuilder<DummyClass, string>(new PropertyMetadataBuilder<DummyClass, string>(metadata));
         }
 
-        [Fact]
+        [TestMethod]
         public void IsBuilder_Ctor_IsNotSet()
         {
-            Assert.False(metadata.Required.HasValue);
+            Assert.IsFalse(metadata.Required.HasValue);
         }
 
-        [Fact]
+        [TestMethod]
         public void IsBuilder_Ctor_IsNotReadOnly()
         {
-            Assert.False(metadata.ReadOnly);
+            Assert.IsFalse(metadata.ReadOnly);
         }
 
-        [Fact]
+        [TestMethod]
         public void SettingRequiredResultsInMetadataRequiredAnd1RequiredRule()
         {
             isBuilder.Required();
-            Assert.True(metadata.Required.Value);
-            Assert.Equal(1, metadata.Rules.OfType<RequiredRule>().Count());
+            Assert.IsTrue(metadata.Required.Value);
+            Assert.AreEqual(1, metadata.Rules.OfType<RequiredRule>().Count());
         }
 
-        [Fact]
+        [TestMethod]
         public void SettingNotRequiredResultsInMetadataNotRequiredAnd0RequiredRules()
         {
             isBuilder.Not.Required();
-            Assert.False(metadata.Required.Value);
-            Assert.Equal(0, metadata.Rules.OfType<RequiredRule>().Count());
+            Assert.IsFalse(metadata.Required.Value);
+            Assert.AreEqual(0, metadata.Rules.OfType<RequiredRule>().Count());
         }
 
-        [Fact]
+        [TestMethod]
         public void SettingNotRequiredAfterRequiredResultsInMetadataNotRequiredAnd0RequiredRules()
         {
             isBuilder.Required();
             isBuilder.Not.Required();
-            Assert.False(metadata.Required.Value);
-            Assert.Equal(0, metadata.Rules.OfType<RequiredRule>().Count());
+            Assert.IsFalse(metadata.Required.Value);
+            Assert.AreEqual(0, metadata.Rules.OfType<RequiredRule>().Count());
         }
 
-        [Fact]
+        [TestMethod]
         public void IsBuilder_Readonly_IsReadOnly()
         {
             isBuilder.ReadOnly();
-            Assert.True(metadata.ReadOnly);
+            Assert.IsTrue(metadata.ReadOnly);
         }
 
-        [Fact]
+        [TestMethod]
         public void IsBuilder_Not_Readonly_IsNotReadOnly()
         {
             isBuilder.Not.ReadOnly();
-            Assert.False(metadata.ReadOnly);
+            Assert.IsFalse(metadata.ReadOnly);
         }
     }
 }

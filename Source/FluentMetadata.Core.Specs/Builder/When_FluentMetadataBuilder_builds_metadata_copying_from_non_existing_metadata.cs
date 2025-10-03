@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Xunit;
-
 namespace FluentMetadata.Specs.Builder
 {
+    [TestClass]
     public class When_FluentMetadataBuilder_builds_metadata_copying_from_non_existing_metadata
     {
-        readonly Exception exception;
+        private readonly Exception exception;
 
         public When_FluentMetadataBuilder_builds_metadata_copying_from_non_existing_metadata()
         {
@@ -32,30 +28,32 @@ namespace FluentMetadata.Specs.Builder
                     t.Is<IClassMetadata>());
         }
 
-        [Fact]
+        [TestMethod]
         public void It_throws_a_NoMetadataDefinedException()
         {
-            Assert.IsType<MetadataDefinitionSorter.NoMetadataDefinedException>(exception);
+            Assert.IsInstanceOfType<MetadataDefinitionSorter.NoMetadataDefinedException>(exception);
         }
 
-        [Fact]
+        [TestMethod]
         public void The_NoMetadataDefinedException_contains_the_full_name_of_the_metadata_type_that_is_unbuildable()
         {
-            Assert.Contains(typeof(SomeTypeMetadata).FullName, exception.Message);
+            Assert.IsTrue(exception.Message.Contains(typeof(SomeTypeMetadata).FullName));
         }
 
-        [Fact]
+        [TestMethod]
         public void The_NoMetadataDefinedException_contains_the_full_name_of_the_model_type_whose_metadata_cannot_be_found()
         {
-            Assert.Contains(typeof(SomeOtherType).FullName, exception.Message);
+            Assert.IsTrue(exception.Message.Contains(typeof(SomeOtherType).FullName));
         }
 
         #region metadata copying from non-existing
 
-        class SomeType { }
-        class SomeOtherType { }
+        private class SomeType
+        { }
+        private class SomeOtherType
+        { }
 
-        class SomeTypeMetadata : ClassMetadata<SomeType>
+        private class SomeTypeMetadata : ClassMetadata<SomeType>
         {
             public SomeTypeMetadata()
             {

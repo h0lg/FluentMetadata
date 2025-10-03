@@ -1,36 +1,40 @@
-using Xunit;
 
 namespace FluentMetadata.MVC.Specs
 {
-    [Concern(typeof(ComplexModel), "Validation of ComplexData")]
-    public abstract class ConcernOfValidationComplexData : InstanceContextSpecification<DummyController>, IUseFixture<FluentMetadataFixture>
+    [TestClass]
+    public class ValidationOfComplexDataTests
     {
-        protected readonly ComplexModel Model = new ComplexModel();
+        private DummyController _sut;
+        private ComplexModel _model;
 
-        protected override DummyController CreateSut() => new DummyController();
-
-        public void SetFixture(FluentMetadataFixture data) { }
-    }
-
-    public class When_FirstName_is_required_and_not_set : ConcernOfValidationComplexData
-    {
-        protected override void Because() => Sut.ValidateModel(Model);
-
-        [Observation]
-        public void Should_one_error_vorname() => Sut.ModelState["FirstName"].Errors.Count.ShouldBeEqualTo(1);
-    }
-
-    public class When_FirstName_is_required_and_is_set : ConcernOfValidationComplexData
-    {
-        protected override void EstablishContext()
+        [TestInitialize]
+        public void Setup()
         {
-            base.EstablishContext();
-            Model.FirstName = "Albert";
+            _sut = new DummyController();
+            _model = new ComplexModel();
         }
 
-        protected override void Because() => Sut.ValidateModel(Model);
+        [TestMethod]
+        public void When_FirstName_is_required_and_not_set_Should_have_one_error()
+        {
+            // Act
+            _sut.ValidateModel(_model);
 
-        [Observation]
-        public void Should_no_error_on_vorname() => Sut.ModelState["FirstName"].ShouldBeNull();
+            // Assert
+            Assert.AreEqual(1, _sut.ModelState["FirstName"].Errors.Count);
+        }
+
+        [TestMethod]
+        public void When_FirstName_is_required_and_is_set_Should_have_no_error()
+        {
+            // Arrange
+            _model.FirstName = "Albert";
+
+            // Act
+            _sut.ValidateModel(_model);
+
+            // Assert
+            Assert.IsNull(_sut.ModelState["FirstName"]);
+        }
     }
 }

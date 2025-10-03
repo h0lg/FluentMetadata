@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
-using Xunit;
 
 namespace FluentMetadata.MVC.Specs
 {
@@ -10,14 +6,17 @@ namespace FluentMetadata.MVC.Specs
     {
         protected ComplexModel model;
 
-        protected override void EstablishContext() => model = new ComplexModel()
+        protected ConcernOfComplexModel()
         {
-            FirstName = "Albert",
-            LastName = "Weinert",
-            Age = 39,
-            Sex = 'm',
-            Amount = 815.4711m
-        };
+            model = new ComplexModel()
+            {
+                FirstName = "Albert",
+                LastName = "Weinert",
+                Age = 39,
+                Sex = 'm',
+                Amount = 815.4711m
+            };
+        }
 
         protected void CreatePropertyMetadata(string propertyName)
         {
@@ -26,12 +25,12 @@ namespace FluentMetadata.MVC.Specs
         }
     }
 
-    [Concern(typeof(FluentMetadataProvider))]
+    [TestClass]
     public class When_getting_the_Metadata_of_the_Type_ComplexModel : ConcernOfComplexModel
     {
-        private ModelValidator[] validators;
+        private readonly ModelValidator[] validators;
 
-        public override void CreateMetadata()
+        public When_getting_the_Metadata_of_the_Type_ComplexModel()
         {
             model.FirstName = "Robert'); DROP ";
             model.LastName = "TABLE Students; --";
@@ -43,21 +42,20 @@ namespace FluentMetadata.MVC.Specs
                 .ToArray();
         }
 
-        [Observation]
-        public void A_validator_is_returned_for_the_generic_rule() => Assert.Equal(1, validators.Length);
+        [TestMethod]
+        public void A_validator_is_returned_for_the_generic_rule() => Assert.AreEqual(1, validators.Length);
 
-        [Observation]
-        public void The_validator_is_of_type_ClassRuleModelValidator() => Assert.IsType<ClassRuleModelValidator>(validators[0]);
+        [TestMethod]
+        public void The_validator_is_of_type_ClassRuleModelValidator() => Assert.IsInstanceOfType<ClassRuleModelValidator>(validators[0]);
 
-        [Observation]
-        public void The_validator_returns_1_ModelValidationResult() => Assert.Equal(1, validators[0].Validate(model).Count());
+        [TestMethod]
+        public void The_validator_returns_1_ModelValidationResult() => Assert.AreEqual(1, validators[0].Validate(model).Count());
 
-        [Observation]
-        public void The_error_message_of_the_ModelValidationResult_equals_the_message_specified_in_the_rule() => Assert.Equal(
-            "'LastName' and 'Vorname' do not match.",
-            validators[0].Validate(model).ToArray()[0].Message);
+        [TestMethod]
+        public void The_error_message_of_the_ModelValidationResult_equals_the_message_specified_in_the_rule()
+            => Assert.AreEqual("'LastName' and 'Vorname' do not match.", validators[0].Validate(model).ToArray()[0].Message);
 
-        [Observation]
+        [TestMethod]
         public void Getting_metadata_for_all_properties_does_not_throw_an_exception()
         {
             Exception error = null;
@@ -66,35 +64,35 @@ namespace FluentMetadata.MVC.Specs
             try { properties = Sut.GetMetadataForProperties(model, model.GetType()); }
             catch (Exception ex) { error = ex; }
 
-            Assert.Null(error);
-            Assert.Equal(OriginalProvider.GetMetadataForProperties(model, model.GetType()).Count(), properties.Count());
+            Assert.IsNull(error);
+            Assert.AreEqual(OriginalProvider.GetMetadataForProperties(model, model.GetType()).Count(), properties.Count());
         }
     }
 
-    [Concern(typeof(FluentMetadataProvider))]
+    [TestClass]
     public class When_getting_the_Metadata_of_ComplexModel_Property_Id : ConcernOfComplexModel
     {
-        public override void CreateMetadata() => CreatePropertyMetadata("Id");
+        public When_getting_the_Metadata_of_ComplexModel_Property_Id() => CreatePropertyMetadata("Id");
     }
 
-    [Concern(typeof(FluentMetadataProvider))]
+    [TestClass]
     public class When_getting_the_Metadata_of_ComplexModel_Property_FirstName : ConcernOfComplexModel
     {
-        public override void CreateMetadata() => CreatePropertyMetadata("FirstName");
+        public When_getting_the_Metadata_of_ComplexModel_Property_FirstName() => CreatePropertyMetadata("FirstName");
     }
 
-    [Concern(typeof(FluentMetadataProvider))]
+    [TestClass]
     public class When_getting_the_Metadata_of_ComplexModel_Property_LastName : ConcernOfComplexModel
     {
-        public override void CreateMetadata() => CreatePropertyMetadata("LastName");
+        public When_getting_the_Metadata_of_ComplexModel_Property_LastName() => CreatePropertyMetadata("LastName");
     }
 
-    [Concern(typeof(FluentMetadataProvider))]
+    [TestClass]
     public class When_getting_the_Metadata_of_ComplexModel_Property_Sex : ConcernOfComplexModel
     {
-        private ModelValidator[] validators;
+        private readonly ModelValidator[] validators;
 
-        public override void CreateMetadata()
+        public When_getting_the_Metadata_of_ComplexModel_Property_Sex()
         {
             CreatePropertyMetadata("Sex");
 
@@ -103,36 +101,36 @@ namespace FluentMetadata.MVC.Specs
                 .ToArray();
         }
 
-        [Observation]
-        public void A_validator_is_returned_for_the_generic_rule() => Assert.Equal(1, validators.Length);
+        [TestMethod]
+        public void A_validator_is_returned_for_the_generic_rule() => Assert.AreEqual(1, validators.Length);
 
-        [Observation]
-        public void The_validator_is_of_type_RuleModelValidator() => Assert.IsType<RuleModelValidator>(validators[0]);
+        [TestMethod]
+        public void The_validator_is_of_type_RuleModelValidator() => Assert.IsInstanceOfType<RuleModelValidator>(validators[0]);
 
-        [Observation]
-        public void The_validator_returns_1_ModelValidationResult() => Assert.Equal(1, validators[0].Validate(model).Count());
+        [TestMethod]
+        public void The_validator_returns_1_ModelValidationResult() => Assert.AreEqual(1, validators[0].Validate(model).Count());
 
-        [Observation]
-        public void The_error_message_of_the_ModelValidationResult_says_value_cannot_be_male() => Assert.Equal(
-            "'Sex' cannot be male since this is a ComplexModel.",
-            validators[0].Validate(model).ToArray()[0].Message);
+        [TestMethod]
+        public void The_error_message_of_the_ModelValidationResult_says_value_cannot_be_male()
+            => Assert.AreEqual("'Sex' cannot be male since this is a ComplexModel.",
+                validators[0].Validate(model).ToArray()[0].Message);
     }
 
-    [Concern(typeof(FluentMetadataProvider))]
+    [TestClass]
     public class When_getting_the_Metadata_of_ComplexModel_Property_Amount : ConcernOfComplexModel
     {
-        public override void CreateMetadata() => CreatePropertyMetadata("Amount");
+        public When_getting_the_Metadata_of_ComplexModel_Property_Amount() => CreatePropertyMetadata("Amount");
     }
 
-    [Concern(typeof(FluentMetadataProvider))]
+    [TestClass]
     public class When_getting_the_Metadata_of_ComplexModel_Property_Age : ConcernOfComplexModel
     {
-        public override void CreateMetadata() => CreatePropertyMetadata("Age");
+        public When_getting_the_Metadata_of_ComplexModel_Property_Age() => CreatePropertyMetadata("Age");
     }
 
-    [Concern(typeof(FluentMetadataProvider))]
+    [TestClass]
     public class When_getting_the_Metadata_of_ComplexModel_Property_Active : ConcernOfComplexModel
     {
-        public override void CreateMetadata() => CreatePropertyMetadata("Active");
+        public When_getting_the_Metadata_of_ComplexModel_Property_Active() => CreatePropertyMetadata("Active");
     }
 }

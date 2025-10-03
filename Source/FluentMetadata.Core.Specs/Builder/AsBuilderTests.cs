@@ -1,8 +1,8 @@
 using FluentMetadata.Builder;
-using Xunit;
 
 namespace FluentMetadata.Specs.Builder
 {
+    [TestClass]
     public class AsBuilderTests
     {
         private readonly Metadata metadata;
@@ -14,52 +14,52 @@ namespace FluentMetadata.Specs.Builder
             asBuilder = new AsBuilder<DummyClass, string>(new PropertyMetadataBuilder<DummyClass, string>(metadata));
         }
 
-        [Fact]
+        [TestMethod]
         public void AsBuilder_Ctor_DataTypeName_IsNull()
         {
-            Assert.Null(metadata.DataTypeName);
+            Assert.IsNull(metadata.DataTypeName);
         }
 
-        [Fact]
+        [TestMethod]
         public void AsBuilder_EmailAdress_DataTypeName_is_EmailAdress()
         {
             asBuilder.EmailAddress();
-            Assert.Equal("EmailAddress", metadata.DataTypeName);
+            Assert.AreEqual("EmailAddress", metadata.DataTypeName);
         }
 
-        [Fact]
+        [TestMethod]
         public void AsBuilder_Url_DataTypeName_is_Url()
         {
             asBuilder.Url();
-            Assert.Equal("Url", metadata.DataTypeName);
+            Assert.AreEqual("Url", metadata.DataTypeName);
         }
 
-        [Fact]
+        [TestMethod]
         public void AsBuilder_Html_DataTypeName_is_Html()
         {
             asBuilder.Html();
-            Assert.Equal("Html", metadata.DataTypeName);
+            Assert.AreEqual("Html", metadata.DataTypeName);
         }
 
-        [Fact]
+        [TestMethod]
         public void AsBuilder_Text_DataTypeName_is_Text()
         {
             asBuilder.Text();
-            Assert.Equal("Text", metadata.DataTypeName);
+            Assert.AreEqual("Text", metadata.DataTypeName);
         }
 
-        [Fact]
+        [TestMethod]
         public void AsBuilder_MultilineText_DataTypeName_is_MultilineText()
         {
             asBuilder.MultilineText();
-            Assert.Equal("MultilineText", metadata.DataTypeName);
+            Assert.AreEqual("MultilineText", metadata.DataTypeName);
         }
 
-        [Fact]
+        [TestMethod]
         public void AsBuilder_Password_DataTypeName_is_Password()
         {
             asBuilder.Password();
-            Assert.Equal("Password", metadata.DataTypeName);
+            Assert.AreEqual("Password", metadata.DataTypeName);
         }
     }
 }
