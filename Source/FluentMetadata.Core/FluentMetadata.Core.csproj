@@ -1,21 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C73F37FA-D859-4714-8335-35069322176A}</ProjectGuid>
+    <TargetFramework>net48</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FluentMetadata</RootNamespace>
-    <AssemblyName>FluentMetadata.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -31,91 +18,29 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\Debug\FluentMetadata.Core.XML</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\Release\FluentMetadata.Core.XML</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core">
+    <Reference Update="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Builder\AsBuilder.cs" />
-    <Compile Include="Builder\ClassMetadataBuilder.cs" />
-    <Compile Include="Builder\PropertiesInClassContextBuilder.cs" />
-    <Compile Include="MetadataDefinitionSorter.cs" />
-    <Compile Include="Rules\ClassRuleValidatingAPropertyWrapper.cs" />
-    <Compile Include="Rules\ICompareProperties.cs" />
-    <Compile Include="Rules\PropertyMustBeLessThanOtherRule.cs" />
-    <Compile Include="Rules\GenericClassRule.cs" />
-    <Compile Include="Rules\GenericRule.cs" />
-    <Compile Include="ClassMetadata.cs" />
-    <Compile Include="Builder\DisplayBuilder.cs" />
-    <Compile Include="Builder\EditorBuilder.cs" />
-    <Compile Include="ExpressionHelper.cs" />
-    <Compile Include="FluentMetadataBuilder.cs" />
-    <Compile Include="IClassBuilder.cs" />
-    <Compile Include="IPropertiesInClassContextBuilder.cs" />
-    <Compile Include="IDisplayClass.cs" />
-    <Compile Include="PropertiesMetadataCollection.cs" />
-    <Compile Include="QueryFluentMetadata.cs" />
-    <Compile Include="IAsProperty.cs" />
-    <Compile Include="IDisplayProperty.cs" />
-    <Compile Include="IEditorProperty.cs" />
-    <Compile Include="IIsProperty.cs" />
-    <Compile Include="IProperty.cs" />
-    <Compile Include="IPropertyExtensions.cs" />
-    <Compile Include="Builder\IsBuilder.cs" />
-    <Compile Include="IShouldProperty.cs" />
-    <Compile Include="MetaData.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Builder\PropertyMetadataBuilder.cs" />
-    <Compile Include="Builder\PropertyNameMetadataBuilder.cs" />
-    <Compile Include="Rules\ClassRule.cs" />
-    <Compile Include="Rules\IClassRule.cs" />
-    <Compile Include="Rules\IRule.cs" />
-    <Compile Include="Rules\PropertyMustMatchRegexRule.cs" />
-    <Compile Include="Rules\PropertyMustMatchRule.cs" />
-    <Compile Include="Rules\RangeRule.cs" />
-    <Compile Include="Rules\RequiredRule.cs" />
-    <Compile Include="Rules\Rule.cs" />
-    <Compile Include="Rules\StringLengthRule.cs" />
-    <Compile Include="Builder\ShouldBuilder.cs" />
-    <Compile Include="TypeExtensions.cs" />
-    <Compile Include="Builder\TypeMetaDataBuilder.cs" />
-    <Compile Include="MetadataHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -134,12 +59,4 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
