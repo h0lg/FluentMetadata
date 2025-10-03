@@ -13,7 +13,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FluentMetadata.Core\FluentMetadata.Core.csproj" />
     <ProjectReference Include="..\FluentMetadata.MVC\FluentMetadata.MVC.csproj" />
   </ItemGroup>
 </Project>
