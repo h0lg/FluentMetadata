@@ -17,13 +17,11 @@ namespace FluentMetadata.Rules
             }
         }
 
-        internal IValidateAProperty PropertyValidatingRule { get; private set; }
+        internal IValidateAProperty PropertyValidatingRule { get; }
 
         internal ClassRuleValidatingAPropertyWrapper(IValidateAProperty propertyValidatingRule)
             : base(null)
-        {
-            PropertyValidatingRule = propertyValidatingRule;
-        }
+            => PropertyValidatingRule = propertyValidatingRule;
 
         public override bool IsValid(object value)
         {
@@ -40,10 +38,8 @@ Please get the exception message from the wrapped class rule.");
 
         protected override bool EqualsRule(Rule rule)
         {
-            var classRuleValidatingAPropertyWrapper = rule as ClassRuleValidatingAPropertyWrapper;
-            return classRuleValidatingAPropertyWrapper == null ?
-                false :
-                classRuleValidatingAPropertyWrapper.PropertyValidatingRule.Equals(PropertyValidatingRule);
+            var classRule = rule as ClassRuleValidatingAPropertyWrapper;
+            return classRule == null ? false : classRule.PropertyValidatingRule.Equals(PropertyValidatingRule);
         }
     }
 }

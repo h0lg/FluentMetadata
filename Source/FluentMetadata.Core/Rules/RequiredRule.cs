@@ -15,26 +15,15 @@ namespace FluentMetadata.Rules
 
         public override bool IsValid(object value)
         {
-            if (value == null)
-            {
-                return false;
-            }
+            if (value == null) return false;
+
             var valueAsString = value as string;
-            if (valueAsString != null && string.IsNullOrEmpty(valueAsString))
-            {
-                return false;
-            }
+            if (valueAsString != null && string.IsNullOrEmpty(valueAsString)) return false;
+
             return true;
         }
 
-        public override string FormatErrorMessage(string name)
-        {
-            return string.Format(CultureInfo.CurrentCulture, ErrorMessageFormat, name);
-        }
-
-        protected override bool EqualsRule(Rule rule)
-        {
-            return rule is RequiredRule;
-        }
+        public override string FormatErrorMessage(string name) => string.Format(CultureInfo.CurrentCulture, GetErrorMessageFormat(), name);
+        protected override bool EqualsRule(Rule rule) => rule is RequiredRule;
     }
 }

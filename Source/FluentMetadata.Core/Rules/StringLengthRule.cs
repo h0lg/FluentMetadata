@@ -39,10 +39,7 @@ namespace FluentMetadata.Rules
         public override bool IsValid(object value)
         {
             var valueAsString = value as string;
-            if (valueAsString == null)
-            {
-                return Minimum.HasValue ? false : true;
-            }
+            if (valueAsString == null) return Minimum.HasValue ? false : true;
 
             var length = valueAsString.Length;
             if (Maximum.HasValue && length > Maximum ||

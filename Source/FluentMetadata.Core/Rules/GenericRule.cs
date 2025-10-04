@@ -8,10 +8,7 @@ namespace FluentMetadata.Rules
         readonly Func<TProperty, bool> assertFunc;
         readonly Func<string> errorMessageFormatFunc;
 
-        public override Type PropertyType
-        {
-            get { return typeof(TProperty); }
-        }
+        public override Type PropertyType => typeof(TProperty);
 
         public GenericRule(Func<TProperty, bool> assertFunc, Func<string> errorMessageFormatFunc)
             : base(errorMessageFormatFunc())
@@ -20,25 +17,13 @@ namespace FluentMetadata.Rules
             this.errorMessageFormatFunc = errorMessageFormatFunc;
         }
 
-        public override string FormatErrorMessage(string name)
-        {
-            return string.Format(
-                CultureInfo.CurrentCulture,
-                errorMessageFormatFunc(),
-                name);
-        }
-
-        public override bool IsValid(object value)
-        {
-            return assertFunc((TProperty)value);
-        }
+        public override string FormatErrorMessage(string name) => string.Format(CultureInfo.CurrentCulture, errorMessageFormatFunc(), name);
+        public override bool IsValid(object value) => assertFunc((TProperty)value);
 
         protected override bool EqualsRule(Rule rule)
         {
             var genericRule = rule as GenericRule<TProperty>;
-            return genericRule == null ?
-                false :
-                genericRule.assertFunc.Equals(assertFunc);
+            return genericRule == null ? false : genericRule.assertFunc.Equals(assertFunc);
         }
     }
 }

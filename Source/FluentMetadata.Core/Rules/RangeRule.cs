@@ -23,15 +23,10 @@ namespace FluentMetadata.Rules
         {
             if (minimum.CompareTo(maximum) > 0)
             {
-                throw new ArgumentOutOfRangeException(
-                    "maximum",
-                    maximum,
-                    string.Format(
-                        CultureInfo.CurrentCulture,
-                        "the minimum value {0} is higher then the maximum value {1}",
-                        minimum,
-                        maximum));
+                throw new ArgumentOutOfRangeException(nameof(maximum), maximum,
+                    string.Format(CultureInfo.CurrentCulture, "the minimum value {0} is higher then the maximum value {1}", minimum, maximum));
             }
+
             this.minimum = minimum;
             this.maximum = maximum;
             this.propertyType = propertyType;
@@ -39,27 +34,15 @@ namespace FluentMetadata.Rules
 
         public override bool IsValid(object value)
         {
-            if (value == null)
-            {
-                return true;
-            }
+            if (value == null) return true;
+
             var valueAsString = value as string;
-            if (valueAsString != null && string.IsNullOrEmpty(valueAsString))
-            {
-                return true;
-            }
-            return minimum.CompareTo(value) <= 0 &&
-                maximum.CompareTo(value) >= 0;
+            if (valueAsString != null && string.IsNullOrEmpty(valueAsString)) return true;
+
+            return minimum.CompareTo(value) <= 0 && maximum.CompareTo(value) >= 0;
         }
 
-        public override string FormatErrorMessage(string name)
-        {
-            return string.Format(CultureInfo.CurrentCulture, ErrorMessageFormat, name, minimum, maximum);
-        }
-
-        protected override bool EqualsRule(Rule rule)
-        {
-            return rule is RangeRule;
-        }
+        public override string FormatErrorMessage(string name) => string.Format(CultureInfo.CurrentCulture, GetErrorMessageFormat(), name, minimum, maximum);
+        protected override bool EqualsRule(Rule rule) => rule is RangeRule;
     }
 }
