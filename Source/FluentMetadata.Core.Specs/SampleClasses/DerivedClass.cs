@@ -3,6 +3,7 @@ namespace FluentMetadata.Specs.SampleClasses
     public abstract class BaseClass
     {
         public int Id { get; set; }
+        public bool Active { get; set; }
     }
 
     public class DerivedClass : BaseClass

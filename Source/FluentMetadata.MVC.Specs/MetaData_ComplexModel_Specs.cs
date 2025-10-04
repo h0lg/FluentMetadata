@@ -129,4 +129,10 @@ namespace FluentMetadata.MVC.Specs
     {
         public override void CreateMetadata() => CreatePropertyMetadata("Age");
     }
+
+    [Concern(typeof(FluentMetadataProvider))]
+    public class When_getting_the_Metadata_of_ComplexModel_Property_Active : ConcernOfComplexModel
+    {
+        public override void CreateMetadata() => CreatePropertyMetadata("Active");
+    }
 }

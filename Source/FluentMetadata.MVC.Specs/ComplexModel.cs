@@ -73,6 +73,8 @@ namespace FluentMetadata.MVC.Specs
 
         public char Sex { get; set; }
         internal bool IsComplex => Sex != 'm';
+
+        public bool Active { get; set; }
     }
 
     public class ComplexModel : ComplexModelBase { }

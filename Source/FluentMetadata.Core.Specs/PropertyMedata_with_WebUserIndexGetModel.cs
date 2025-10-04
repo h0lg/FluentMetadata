@@ -7,7 +7,7 @@ namespace FluentMetadata.Specs
 {
     public class PropertyMedata_with_WebUserIndexGetModel : MetadataTestBase
     {
-        private readonly Metadata username, id, autorName, email, role, secondaryRoles, passwordHash, comment;
+        private readonly Metadata username, id, autorName, email, role, secondaryRoles, passwordHash, comment, active;
 
         public PropertyMedata_with_WebUserIndexGetModel()
         {
@@ -19,6 +19,7 @@ namespace FluentMetadata.Specs
             secondaryRoles = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "SecondaryRoles");
             passwordHash = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "PasswordHash");
             comment = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "Comment");
+            active = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "Active");
         }
 
         [Fact] public void Username_ModelName_is_Username() { Assert.Equal("Username", username.ModelName); }

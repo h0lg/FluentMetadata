@@ -5,17 +5,24 @@ namespace FluentMetadata.Specs
 {
     public class BaseClass_Tests : MetadataTestBase
     {
-        readonly Metadata id;
+        readonly Metadata id, active;
 
         public BaseClass_Tests()
         {
             id = QueryFluentMetadata.GetMetadataFor(typeof(BaseClass), "Id");
+            active = QueryFluentMetadata.GetMetadataFor(typeof(BaseClass), "Active");
         }
 
         [Fact]
         public void Id_Required_is_True()
         {
             id.Required.Value.ShouldBeTrue();
+        }
+
+        [Fact]
+        public void Active_Required_is_Null()
+        {
+            active.Required.ShouldBeNull();
         }
     }
 
