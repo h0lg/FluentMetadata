@@ -13,7 +13,7 @@
     <DocumentationFile>bin\Release\FluentMetadata.AutoMapper.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs">
@@ -22,9 +22,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FluentMetadata.Core\FluentMetadata.Core.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="System.ValueTuple" Version="4.6.1" />
   </ItemGroup>
 </Project>
