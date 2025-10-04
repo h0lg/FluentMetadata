@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using AutoMapper.Internal;
 
 namespace FluentMetadata.AutoMapper
 {
@@ -35,18 +36,18 @@ namespace FluentMetadata.AutoMapper
                 {
                     yield return new MemberMap
                     {
-                        SourceName = propertyMap.SourceMembers.Count > 1 ?
+                        SourceName = propertyMap.SourceMembers.Count() > 1 ?
                             propertyMap.SourceMembers.Aggregate(string.Empty, (result, svr) => result + svr.Name) :
                             propertyMap.SourceMember.Name,
                         DestinationName = propertyMap.DestinationName
                     };
                 }
-                else if (propertyMap.ValueResolverConfig != null)
+                else if (propertyMap.CanResolveValue)
                 {
                     yield return new MemberMap
                     {
-                        SourceName = propertyMap.ValueResolverConfig.SourceMemberName
-                            ?? ExpressionHelper.GetPropertyName(propertyMap.ValueResolverConfig.SourceMember),
+                        SourceName = propertyMap.Resolver.SourceMemberName
+                            ?? ExpressionHelper.GetPropertyName(propertyMap.Resolver.ProjectToExpression),
                         DestinationName = propertyMap.DestinationName
                     };
                 }
@@ -63,7 +64,7 @@ namespace FluentMetadata.AutoMapper
         /// <returns></returns>
         private static IEnumerable<PropertyMap> GetRelevantMappedMembersOf(this MapperConfiguration config, Type source, Type destination)
         {
-            var typeMap = config.FindTypeMapFor(source, destination);
+            var typeMap = config.Internal().FindTypeMapFor(source, destination);
             // filter by non-ignored PropertyMaps
             return typeMap != null ? typeMap.PropertyMaps.Where(m => !m.Ignored) : Enumerable.Empty<PropertyMap>();
         }
