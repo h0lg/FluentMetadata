@@ -11,7 +11,6 @@ namespace FluentMetadata.Rules
         public override Type PropertyType => typeof(TProperty);
 
         public GenericRule(Func<TProperty, bool> assertFunc, Func<string> errorMessageFormatFunc)
-            : base(errorMessageFormatFunc())
         {
             this.assertFunc = assertFunc;
             this.errorMessageFormatFunc = errorMessageFormatFunc;

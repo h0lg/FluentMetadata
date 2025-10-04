@@ -11,8 +11,6 @@ namespace FluentMetadata.Rules
 
         public override Type PropertyType => typeof(object);
 
-        public RequiredRule() : base(GetErrorMessageFormat()) { }
-
         public override bool IsValid(object value)
         {
             if (value == null) return false;

@@ -16,10 +16,7 @@ namespace FluentMetadata.Rules
         internal object Minimum => minimum;
         internal object Maximum => maximum;
 
-        RangeRule() : base(GetErrorMessageFormat()) { }
-
         public RangeRule(IComparable minimum, IComparable maximum, Type propertyType)
-            : this()
         {
             if (minimum.CompareTo(maximum) > 0)
             {

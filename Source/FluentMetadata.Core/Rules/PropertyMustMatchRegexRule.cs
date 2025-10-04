@@ -14,11 +14,7 @@ namespace FluentMetadata.Rules
 
         public override Type PropertyType => typeof(string);
 
-        public PropertyMustMatchRegexRule(string pattern)
-            : base(GetErrorMessageFormat())
-        {
-            Pattern = pattern;
-        }
+        public PropertyMustMatchRegexRule(string pattern) => Pattern = pattern;
 
         public override bool IsValid(object value)
         {

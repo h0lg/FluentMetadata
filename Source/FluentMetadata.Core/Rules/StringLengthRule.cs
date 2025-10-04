@@ -23,14 +23,9 @@ namespace FluentMetadata.Rules
         internal int? Maximum { get; }
         public override Type PropertyType => typeof(string);
 
-        public StringLengthRule(int maxLength)
-            : base(GetMaxLengthErrorMessageFormat())
-        {
-            Maximum = maxLength;
-        }
+        public StringLengthRule(int maxLength) => Maximum = maxLength;
 
         public StringLengthRule(int minLength, int? maxLength)
-            : base(maxLength.HasValue ? GetLengthRangeErrorMessageFormat() : GetMinLengthErrorMessageFormat())
         {
             Minimum = minLength;
             Maximum = maxLength;
@@ -42,16 +37,17 @@ namespace FluentMetadata.Rules
             if (valueAsString == null) return Minimum.HasValue ? false : true;
 
             var length = valueAsString.Length;
-            if (Maximum.HasValue && length > Maximum ||
-                Minimum.HasValue && length < Minimum)
-            {
-                return false;
-            }
-
-            return true;
+            return (!Maximum.HasValue || length <= Maximum) && (!Minimum.HasValue || length >= Minimum);
         }
 
-        public override string FormatErrorMessage(string name) => string.Format(CultureInfo.CurrentCulture, ErrorMessageFormat, name, Minimum, Maximum);
+        public override string FormatErrorMessage(string name)
+        {
+            var errorMessageFormat = Minimum.HasValue && Maximum.HasValue ? GetLengthRangeErrorMessageFormat()
+                : Minimum.HasValue ? GetMinLengthErrorMessageFormat() : GetMaxLengthErrorMessageFormat();
+
+            return string.Format(CultureInfo.CurrentCulture, errorMessageFormat, name, Minimum, Maximum);
+        }
+
         protected override bool EqualsRule(Rule rule) => rule is StringLengthRule;
     }
 
@@ -59,7 +55,6 @@ namespace FluentMetadata.Rules
     public class EqualToRule : Rule
     {
         public EqualToRule(string errorMessageFormat)
-            : base(errorMessageFormat)
         {
         }
 

@@ -20,7 +20,6 @@ namespace FluentMetadata.Rules
         internal IValidateAProperty PropertyValidatingRule { get; }
 
         internal ClassRuleValidatingAPropertyWrapper(IValidateAProperty propertyValidatingRule)
-            : base(null)
             => PropertyValidatingRule = propertyValidatingRule;
 
         public override bool IsValid(object value)
